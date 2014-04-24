@@ -1,0 +1,20 @@
+
+football.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ball
+  rotate: false
+  xy: 1, 1
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+textbubble
+  rotate: false
+  xy: 83, 21
+  size: 60, 60
+  split: 30, 29, 30, 29
+  orig: 60, 60
+  offset: 0, 0
+  index: -1

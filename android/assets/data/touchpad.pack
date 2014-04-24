@@ -1,0 +1,47 @@
+
+touchpad.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+touchBackground
+  rotate: false
+  xy: 1, 1
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+touchBackground2
+  rotate: false
+  xy: 203, 1
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+controller2
+  rotate: false
+  xy: 405, 90
+  size: 160, 111
+  orig: 160, 111
+  offset: 0, 0
+  index: -1
+controller
+  rotate: false
+  xy: 567, 94
+  size: 160, 107
+  orig: 160, 107
+  offset: 0, 0
+  index: -1
+touchKnob
+  rotate: false
+  xy: 405, 16
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+touchKnob2
+  rotate: false
+  xy: 729, 129
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1

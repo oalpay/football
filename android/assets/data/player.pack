@@ -1,0 +1,82 @@
+
+player.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+p2_walk01
+  rotate: false
+  xy: 1, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk02
+  rotate: false
+  xy: 73, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk03
+  rotate: false
+  xy: 145, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk04
+  rotate: false
+  xy: 217, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk05
+  rotate: false
+  xy: 289, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk06
+  rotate: false
+  xy: 361, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk07
+  rotate: false
+  xy: 433, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk08
+  rotate: false
+  xy: 505, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk09
+  rotate: false
+  xy: 577, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk10
+  rotate: false
+  xy: 649, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
+p2_walk11
+  rotate: false
+  xy: 721, 1
+  size: 70, 94
+  orig: 70, 94
+  offset: 0, 0
+  index: -1
