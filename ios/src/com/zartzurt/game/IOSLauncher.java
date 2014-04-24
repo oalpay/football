@@ -1,11 +1,12 @@
 package com.zartzurt.game;
 
+import games.hebele.football.MyGdxGame;
+
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.zartzurt.game.MyGdxGame;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override

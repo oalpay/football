@@ -1,10 +1,10 @@
 package com.zartzurt.game.android;
 
+import games.hebele.football.MyGdxGame;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.zartzurt.game.MyGdxGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
