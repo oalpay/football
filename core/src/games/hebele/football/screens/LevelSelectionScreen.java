@@ -32,7 +32,7 @@ public class LevelSelectionScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(178/255f, 213/255f, 238/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
@@ -60,8 +60,8 @@ public class LevelSelectionScreen implements Screen {
 		//screenTable.setPosition(Virtual_Width/2, Virtual_Height/2);
 		screenTable.setFillParent(true);
 		
-		float btnWidth=125;
-		float btnHeight=150;
+		float btnWidth=130;
+		float btnHeight=170;
 		
 		screenTable.defaults().size(btnWidth, btnHeight);
 		screenTable.defaults().padBottom(btnHeight/3);
@@ -75,24 +75,26 @@ public class LevelSelectionScreen implements Screen {
 			    3, 1, 2,
 			    3, 0, 0, 
 			    0, 0, 0, 
-			    0, 0, 0, 
+			    0 
 			};
 		
+		int curLevel = 5;
 		
 		int numLevel=dummyLevels.length;
 		int levelPerRow=5;
 		
-		float starSize=btnWidth/3;
+		float starSize=btnWidth/2.5f;
 		
 		for(int i=1; i<numLevel;  i++){
 			
 			if(i%levelPerRow == 1) screenTable.row();
 			
 			int levelPoint = dummyLevels[i];
-			final boolean locked = (levelPoint==0);
+			final boolean locked = (levelPoint==0 && i!=curLevel);
 			
 			String panelType ="panel_green";
 			if(locked) panelType ="panel_grey";
+			if(i == curLevel) panelType ="panel_blue"; 
 			
 			ImageTextButton btn = new ImageTextButton(""+i,skin,panelType);
 			btn.row();
@@ -113,6 +115,10 @@ public class LevelSelectionScreen implements Screen {
 				btn.add(star3).padLeft(-starSize/2).size(starSize);
 				
 				star3.toBack();
+			}
+			
+			if(locked){
+				btn.add(new Image(skin,"lock")).size(113/2, 150/2).center();
 			}
 			
 			btn.addListener(new ClickListener(){

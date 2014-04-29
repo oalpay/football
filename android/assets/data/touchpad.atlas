@@ -24,65 +24,72 @@ controller
   orig: 160, 92
   offset: 0, 0
   index: -1
+lock
+  rotate: false
+  xy: 527, 101
+  size: 113, 150
+  orig: 113, 150
+  offset: 0, 0
+  index: -1
 blue_panel
   rotate: false
-  xy: 527, 151
+  xy: 642, 151
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 green_panel
   rotate: false
-  xy: 629, 151
+  xy: 744, 151
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 grey_panel
   rotate: false
-  xy: 731, 151
+  xy: 846, 151
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 yellow_panel
   rotate: false
-  xy: 833, 151
+  xy: 203, 38
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 star_empty
   rotate: false
-  xy: 203, 39
+  xy: 305, 39
   size: 96, 99
   orig: 96, 99
   offset: 0, 0
   index: -1
 star_full
   rotate: false
-  xy: 301, 39
+  xy: 403, 58
   size: 96, 99
   orig: 96, 99
   offset: 0, 0
   index: -1
 touchKnob
   rotate: false
-  xy: 935, 179
+  xy: 948, 179
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 1, 1
+  xy: 642, 101
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 play
   rotate: false
-  xy: 51, 1
+  xy: 1, 1
   size: 48, 48
   orig: 48, 48
   offset: 0, 0

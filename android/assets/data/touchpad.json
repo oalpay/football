@@ -12,11 +12,12 @@
 	com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	    controller: 	{ up: controller, 	down: controller },
 	    controller2: 	{ up: controller2, 	down: controller2 },
-	    play	: 		{ up: play, 	down: pause, checked: pause },
+	    play	: 		{ up: pause, 	down: play, checked: play },
 	    pause	: 		{ up: pause, 	down: play }
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	    panel_green: 	{ up: green_panel, 	down: yellow_panel, font: white32, fontColor:white },
+	    panel_blue: 	{ up: blue_panel, 	down: yellow_panel, font: white32, fontColor:white },
 	    panel_grey: 	{ up: grey_panel, 	down: grey_panel, font: white32, fontColor:white }
 	}
 }
