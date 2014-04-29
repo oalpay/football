@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+import games.hebele.football.helpers.GameController;
+import games.hebele.football.helpers.GameController.GameState;
 import games.hebele.football.objects.Player;
 
 public class HUD {
@@ -30,7 +32,7 @@ public class HUD {
     private Drawable touchBackground;
     private Drawable touchKnob;
     
-    private ImageButton btnController;
+    private ImageButton btnController, btnPlay;
     
     private float lastKnobPercentX, lastKnobPercentY;
     
@@ -53,8 +55,8 @@ public class HUD {
         touchpadStyle = new TouchpadStyle();
         
         //Create Drawable's from TouchPad skin
-        touchBackground = touchpadSkin.getDrawable("touchBackground2");
-        touchKnob = touchpadSkin.getDrawable("touchKnob2");
+        touchBackground = touchpadSkin.getDrawable("touchBackground");
+        touchKnob = touchpadSkin.getDrawable("touchKnob");
         
         //Apply the Drawables to the TouchPad Style
         touchpadStyle.background = touchBackground;
@@ -74,9 +76,11 @@ public class HUD {
 			@Override
 			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
 				
-				System.out.println(lastKnobPercentX+" , "+lastKnobPercentY);
+				//System.out.println(lastKnobPercentX+" , "+lastKnobPercentY);
 				
-				player.kickBall(lastKnobPercentX, lastKnobPercentY);
+				//CHECK IF GAME IS RUNNING BEFORE KICKING THE BALL
+				if(GameController.isGameRunning())
+					player.kickBall(lastKnobPercentX, lastKnobPercentY);
 				
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -94,11 +98,36 @@ public class HUD {
         stage.addActor(touchpad);      
         
         initControllers();
+        initButtons();
+	}
+	
+	public void initButtons(){
+		btnPlay = new ImageButton(skin,"play");
+		
+		float btnSize=100;
+		btnPlay.setSize(btnSize, btnSize);
+		btnPlay.setPosition(stage.getWidth()-btnSize*1.5f, stage.getHeight()-btnSize*1.5f);
+		
+		stage.addActor(btnPlay);
+		
+		btnPlay.addListener(new InputListener(){
+			
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
+				return true;
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
+				if(GameController.isGameRunning()) GameController.setGameState(GameState.GAME_PAUSED);
+				else GameController.setGameState(GameState.GAME_RUNNING);
+			}
+		});
 	}
 	
 	public void initControllers(){
 		
-		btnController = new ImageButton(skin,"controller2");
+		btnController = new ImageButton(skin,"controller");
 		
 		float btnRatio = btnController.getHeight() / btnController.getWidth();
 		controllerWidth=300;

@@ -7,6 +7,8 @@
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	    controller: 	{ up: controller, 	down: controller },
-	    controller2: 	{ up: controller2, 	down: controller2 }
+	    controller2: 	{ up: controller2, 	down: controller2 },
+	    play	: 		{ up: play, 	down: pause, checked: pause },
+	    pause	: 		{ up: pause, 	down: play },
 	}
 }

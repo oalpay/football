@@ -57,8 +57,8 @@ public class InputHandler implements InputProcessor {
 			break;
 		case Keys.D:
 			player.turnToRight();
-	}
-	return true;
+		}
+		return true;
 	}
 
 	@Override

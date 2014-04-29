@@ -3,6 +3,7 @@ package games.hebele.football.screens;
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.ContactHelper;
+import games.hebele.football.helpers.GameController;
 import games.hebele.football.helpers.InputHandler;
 import games.hebele.football.objects.Enemy;
 import games.hebele.football.objects.Player;
@@ -84,6 +85,7 @@ public class PlayScreen implements Screen {
 	private float runTime;
 	
 	private Array<Enemy> enemies = new Array<Enemy>();
+	
 	
 	@Override
 	public void show() {
@@ -256,20 +258,33 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		runTime+=delta;
 		
-		camera.position.x = player.getBody().getWorldCenter().x;
-		camera.position.y = player.getBody().getWorldCenter().y;
-		camera.update();
-
-		sweepDeadBodies();
-		if(player.isPreparePickBall()) player.pickBall();
 		
-		world.step(1/60f, 8, 3);
-
-		player.update(delta,runTime);
-		inputHandler.checkPressedInput(delta);
-		
+		//UPDATE DATAS WHEN GAME IS RUNNING
+		if(GameController.isGameRunning()){
+			runTime+=delta;
+			
+			camera.position.x = player.getBody().getWorldCenter().x;
+			camera.position.y = player.getBody().getWorldCenter().y;
+			camera.update();
+	
+			sweepDeadBodies();
+			if(player.isPreparePickBall()) player.pickBall();
+			
+			world.step(1/60f, 8, 3);
+	
+			player.update(delta,runTime);
+			inputHandler.checkPressedInput(delta);
+			
+			//UPDATE ENEMIES	
+			for(int i=0; i<enemies.size; i++){
+				Enemy e = enemies.get(i);
+				if(!e.isFlaggedForDelete()){
+					e.update(delta, runTime);
+				}
+			}
+		}
+		//------------------------------------------------
 		
 		
 		//DRAW BACKGROUND
@@ -300,7 +315,6 @@ public class PlayScreen implements Screen {
 		for(int i=0; i<enemies.size; i++){
 			Enemy e = enemies.get(i);
 			if(!e.isFlaggedForDelete()){
-				e.update(delta, runTime);
 				e.draw(spriteBatch);
 			}
 		}

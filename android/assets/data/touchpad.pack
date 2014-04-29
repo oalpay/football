@@ -5,43 +5,43 @@ filter: Nearest,Nearest
 repeat: none
 touchBackground
   rotate: false
-  xy: 1, 1
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: -1
-touchBackground2
-  rotate: false
-  xy: 203, 1
+  xy: 1, 51
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 controller2
   rotate: false
-  xy: 405, 90
+  xy: 203, 140
   size: 160, 111
   orig: 160, 111
   offset: 0, 0
   index: -1
 controller
   rotate: false
-  xy: 567, 94
-  size: 160, 107
-  orig: 160, 107
+  xy: 203, 46
+  size: 160, 92
+  orig: 160, 92
   offset: 0, 0
   index: -1
 touchKnob
   rotate: false
-  xy: 405, 16
+  xy: 365, 179
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
-touchKnob2
+pause
   rotate: false
-  xy: 729, 129
-  size: 72, 72
-  orig: 72, 72
+  xy: 1, 1
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 365, 129
+  size: 48, 48
+  orig: 48, 48
   offset: 0, 0
   index: -1
