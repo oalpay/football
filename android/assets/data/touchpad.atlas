@@ -1,0 +1,89 @@
+
+touchpad.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+touchBackground
+  rotate: false
+  xy: 1, 51
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+controller2
+  rotate: false
+  xy: 203, 140
+  size: 160, 111
+  orig: 160, 111
+  offset: 0, 0
+  index: -1
+controller
+  rotate: false
+  xy: 365, 159
+  size: 160, 92
+  orig: 160, 92
+  offset: 0, 0
+  index: -1
+blue_panel
+  rotate: false
+  xy: 527, 151
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+green_panel
+  rotate: false
+  xy: 629, 151
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+grey_panel
+  rotate: false
+  xy: 731, 151
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+yellow_panel
+  rotate: false
+  xy: 833, 151
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+star_empty
+  rotate: false
+  xy: 203, 39
+  size: 96, 99
+  orig: 96, 99
+  offset: 0, 0
+  index: -1
+star_full
+  rotate: false
+  xy: 301, 39
+  size: 96, 99
+  orig: 96, 99
+  offset: 0, 0
+  index: -1
+touchKnob
+  rotate: false
+  xy: 935, 179
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 1, 1
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 51, 1
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1

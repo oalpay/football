@@ -44,7 +44,7 @@ public class HUD {
 		this.stage=stage;
 		
 		//TOUCHPAD
-		TextureAtlas touchpadAtlas = new TextureAtlas(Gdx.files.internal("data/touchpad.pack"));
+		TextureAtlas touchpadAtlas = new TextureAtlas(Gdx.files.internal("data/touchpad.atlas"));
 		
 		skin = new Skin(Gdx.files.internal("data/touchpad.json"),touchpadAtlas);
 		

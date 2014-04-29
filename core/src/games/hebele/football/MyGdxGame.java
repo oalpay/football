@@ -1,6 +1,7 @@
 package games.hebele.football;
 
 import games.hebele.football.helpers.Assets;
+import games.hebele.football.screens.LevelSelectionScreen;
 import games.hebele.football.screens.PlayScreen;
 
 import com.badlogic.gdx.Game;
@@ -16,7 +17,8 @@ public class MyGdxGame extends Game {
 		
 		Variables.VIRTUAL_STAGE_HEIGHT = Variables.VIRTUAL_STAGE_WIDTH * Gdx.graphics.getHeight() / Gdx.graphics.getWidth();
 		
-		setScreen(new PlayScreen());
+		setScreen(new LevelSelectionScreen());
+		//setScreen(new PlayScreen());
 	}
 	
 	@Override

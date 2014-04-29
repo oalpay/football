@@ -1,4 +1,8 @@
 {
+	com.badlogic.gdx.graphics.g2d.BitmapFont: { 
+		default-font: 	{"file": "fonts/bookantiqua_white_32.fnt"},
+		"white32": 		{"file": "fonts/bookantiqua_white_32.fnt"}
+	},
 	com.badlogic.gdx.graphics.Color: {
 	    green: { a: 1, b: 0, g: 1, r: 0 },
 	    white: { a: 1, b: 1, g: 1, r: 1 },
@@ -9,6 +13,10 @@
 	    controller: 	{ up: controller, 	down: controller },
 	    controller2: 	{ up: controller2, 	down: controller2 },
 	    play	: 		{ up: play, 	down: pause, checked: pause },
-	    pause	: 		{ up: pause, 	down: play },
+	    pause	: 		{ up: pause, 	down: play }
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	    panel_green: 	{ up: green_panel, 	down: yellow_panel, font: white32, fontColor:white },
+	    panel_grey: 	{ up: grey_panel, 	down: grey_panel, font: white32, fontColor:white }
 	}
 }
