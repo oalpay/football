@@ -1,14 +1,17 @@
 package games.hebele.football.objects;
 
 import games.hebele.football.Variables;
+import games.hebele.football.helpers.Assets;
 
 import java.util.List;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -39,8 +42,8 @@ public class Player extends Sprite {
 	
 
 	private TextureAtlas playerAtlas;
+	private Animation playerAnimation;
 	private float runTime=0;
-	private Animation animation;
 	private int playerTowards;  
 	private boolean jump=false;
 	
@@ -68,10 +71,6 @@ public class Player extends Sprite {
 		height=1;
 		width=1;
 		
-		setSize(width,height);
-		
-		playerAtlas= new TextureAtlas("data/player.pack");
-		setRegion(playerAtlas.findRegion("p2_walk01"));
 		
 		playerMovement = new Vector2(0,0);
 		
@@ -80,8 +79,17 @@ public class Player extends Sprite {
 		initPlayerBallJoint();
 		
 		
-		
+		//LOAD ASSETS-----------------------------
+		TextureAtlas textureAtlas = Assets.manager.get(Assets.footballPack, TextureAtlas.class);
+		//BACKGROUND IMAGE
+		playerAnimation = new Animation(0.2f, textureAtlas.findRegions("male_runner_1"));
+		playerAnimation.setPlayMode(PlayMode.LOOP);
+		setRegion(playerAnimation.getKeyFrame(0.2f));
+		setSize(width,height*1.5f);
+		//texturebg = textureAtlas.findRegion("bg1");
 
+		setFlip(true, false);
+		//flip(true,false);
 	}
 	
 	public void removeBallRope(){
@@ -188,7 +196,13 @@ public class Player extends Sprite {
 		//	System.out.println("jump, " + playerBody.getLinearVelocity());				
 		}
 		
-		//update SPRITE Position
+		//update SPRITE and Position
+		//TextureRegion walkRegion=playerAnimation.getKeyFrame(runTime);
+
+		if(isWalking) setRegion(playerAnimation.getKeyFrame(runTime));	
+		if(towardsRight) setFlip(false, false);
+		else setFlip(true, false);
+		
 		setPosition(playerBody.getPosition().x-width/2,playerBody.getPosition().y-height/2);
 	}
 	
@@ -310,6 +324,8 @@ public class Player extends Sprite {
 		if(!playerBall.isKicked())
 			playerBall.getBody().setTransform(playerBody.getPosition().x+getWidth(), playerBall.getBody().getPosition().y, playerBall.getBody().getTransform().getRotation());
 	
+		setFlip(false, false);
+		
 	}
 	
 	public void turnToLeft(){
@@ -321,7 +337,8 @@ public class Player extends Sprite {
 		//get ball to left
 		if(!playerBall.isKicked())
 			playerBall.getBody().setTransform(playerBody.getPosition().x-getWidth(), playerBall.getBody().getPosition().y, playerBall.getBody().getTransform().getRotation());
-	
+		
+		setFlip(true, false);
 	}
 	
 	public void walkRight(){
@@ -344,6 +361,8 @@ public class Player extends Sprite {
 			playerBody.setLinearVelocity(0, 0);
 			setFriction(100);
 		};
+		
+		setRegion(playerAnimation.getKeyFrame(0.2f));
 	}
 	
 	public void jump(){

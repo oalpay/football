@@ -1,6 +1,7 @@
 package games.hebele.football.screens;
 
 import games.hebele.football.Variables;
+import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.ContactHelper;
 import games.hebele.football.helpers.InputHandler;
 import games.hebele.football.objects.Enemy;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
@@ -57,6 +59,9 @@ public class PlayScreen implements Screen {
 
 	private World world;
 	private Body groundBody, ballBody;
+	
+	private TextureAtlas textureAtlas;
+	private TextureRegion texturebg, textureGround;
 	
 	private Player player;
 	
@@ -100,7 +105,7 @@ public class PlayScreen implements Screen {
 		//stage.getViewport().update((int), (int)Variables.VIRTUAL_STAGE_HEIGHT);
 
 		
-		map = new TmxMapLoader().load("maps/map_uncomp.tmx");
+		map = new TmxMapLoader().load("maps/map1.tmx");
 		mapRenderer = new OrthogonalTiledMapRenderer(map,1/Variables.PIXEL_TO_METER,spriteBatch);
 		shapeRenderer = new ShapeRenderer();
 		
@@ -129,6 +134,12 @@ public class PlayScreen implements Screen {
 		
 		hud = new HUD(stage, player);
 		
+
+		//LOAD ASSETS-----------------------------
+		textureAtlas = Assets.manager.get(Assets.footballPack, TextureAtlas.class);
+		//BACKGROUND IMAGE
+		texturebg = textureAtlas.findRegion("bg1");
+		textureGround = textureAtlas.findRegion("ground2");
 	}
 	
 
@@ -259,12 +270,26 @@ public class PlayScreen implements Screen {
 		player.update(delta,runTime);
 		inputHandler.checkPressedInput(delta);
 		
+		
+		
+		//DRAW BACKGROUND
+		spriteBatch.begin();
+		spriteBatch.draw(texturebg, 0, 0, stage.getWidth(), stage.getHeight());
+		spriteBatch.end();
+		
+		//DRAW GROUND
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		spriteBatch.draw(textureGround, camera.position.x - Virtual_Width/2, -Virtual_Height*0.5f, Virtual_Width, Virtual_Height*0.6f);
+		spriteBatch.end();
+		
+
+		//DRAW TILEMAP
 		mapRenderer.setView(camera);
 		mapRenderer.render();
 		
-		spriteBatch.setProjectionMatrix(camera.combined);
+
 		spriteBatch.begin();
-		
 		//DRAW PLAYER
 		player.draw(spriteBatch);
 		
@@ -282,11 +307,10 @@ public class PlayScreen implements Screen {
 		
 		spriteBatch.end();
 		
+		//DRAW BOX2D DEBUG OBJECTS
 		debugRenderer.render(world, camera.combined);
 		
-		
-		//System.out.println(hud.getKnobPercentX());
-		
+		//DRAW STAGE - HUD
 		stage.act(delta);
 		stage.draw();
 	}

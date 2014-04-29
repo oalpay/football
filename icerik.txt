@@ -1,0 +1,48 @@
+-Oyun amaci:
+------------
+
+-Karakterini yöneterek bölüm sonuna ulaþmak. Bu süreçte topunu kullanarak çeþitli puzzlelarý çözmen gerekiyor.
+Topunu kaybetmen oyunu kaybetmene yol açýyor.
+
+-Bölüm sýrasýnda fazladan top bulabilirsin (can yerine topun olacak)
+-eðer toplarýn kalmazsa veya doðrudan sana isabet gelirse bölümü kaybediyorsun
+
+-Bölümler çok uzun olmayacak ancak hem çeþitle hem de belli puzzlelarla biraz uðraþtýracak.
+asýl zorluk bölümü 3 yýldýzla geçmek olacak.
+
+
+
+Örnek düþmanlar:
+----------------
+-sokakta dolaþan çocuklar. sana doðru koþup topunu almaya çalýþacaklar. sadece topunun yanýna gelirlerse etkililer.
+-sokakta dolaþan abiler. bunlarý ya uzaktan vurman lazým ya da baþka bir yolda geçerek görmemen. bunlar "at abinin göðsüne" diyerek topu uzak mesafeden çalma yeteneðine sahipler
+-penceredeki teyze - terlikçi. bunlar hareket edemiyor ancak belli bir mesafeden "oðlum oynamayýn burada!" diyerek terlik fýrlatýyor.
+-penceredeki teyze - sucu. bunlar da hareket edemiyor. yaklaþýncaya kadar pencerede olduðunu anlayamýyorsun (sadece pencere olup tehlike olmayan objeler de olacak)
+tam altýndan geçerken aniden camdan çýkýp aþaðýya kafana su döküyor
+	
+
+-Bölüm içeriði:
+---------------
+
+-Bölüm boyunca çeþitli düþmanlar olacak. Bunlarýn kimisi topunu patlatmaya çalýþacak, kimisi ise seni durdurmaya.
+
+-Bölümlerde çok sayýda fiziki özelliklerde objeler olacak. kimisini yýkabileceksin, kimisini ise topunu çaprtýrýp / sektirmek için
+kullanacaksýn. Örneðin çember gibi objelerin içerisinde para varsa buraya topu atýp tam tur atarak bunlarý toplayabileceksin.
+
+-Çeþitli engeller olacak. Örnek:
+	-Bazý noktalarda ilerleyebilmek için açman gereken kapýlar olacak. Kimi zaman bu düðmeler kolay yerde olacak.
+	üzerine basýp geçebileceksin. Kimi zaman ise yürüyerek ulaþamadýðýn yerde olacak. Topu belli bir açýyla atarak 
+	düðmeye basman gerekecek. Bunu yaparken de topu yanlýþ yere göndererek kaybetmemen gerekli.
+	
+	-Bazý düðmelere dokunmak deðil, üzerine basman gerekecek. Bunlar genelde kapýnýn diðer tarafýnda olacak. 
+	Topunu kapýnýn üstünden yavaþça atarak düðmennin üstüne getirmeye çalýþacaksýn. Kapý açýlýp diðer tarafa
+	geçince topunu geri alabilirsin.
+	
+	-Bazý engeller yýkýlabilir/kýrýlabilir olacak. Topunla þut çekerek yýkacaksýn. 
+	
+	-Bazý engelleri yýktýkça puan alacaksýn
+	
+	-Bazý engelleri ise yýkmamak tercih edilecek. örneðin önüne cam bir engel çýktý. yýkýp kolayca yoluna devam edebilirsin. 
+	ancak yýkarsan mahallelinin dikkatini çekecek, düþman spawný artacak. bu yüzden alternatif yol bulup aþmak daha yüksek puan getirecek
+	
+	

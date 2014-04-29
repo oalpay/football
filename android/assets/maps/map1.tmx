@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="10" tilewidth="70" tileheight="70">
+<map version="1.0" orientation="orthogonal" width="250" height="10" tilewidth="70" tileheight="70">
  <tileset firstgid="1" name="tiles" tilewidth="70" tileheight="70" spacing="2">
   <image source="tiles.png" width="1024" height="1024"/>
  </tileset>
- <layer name="background" width="50" height="10">
+ <layer name="background" width="250" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxXMxoLxgalAXIEHVxLQHwrFowACiAlzegJK45fe5iIDVSDOpoI5AwlAfhAnUy89whgXUEWzC+SHjTS0jxxAKHxgYb8RCx5KAAB52yDv
+   eJztl0EKwjAQRXsLT1DwGF7CvXvBtYrH0JWn6A1NwICENK1JJvmZ/gd/2ekwP7+ZDgMhhBCCxTugGC+ja0Q3sU63Cf3Bhd7Igzbj41eEILAmE6QdW/DnbrT3dGna0TpaeCN1P6HuFr2df23+lMqmrXMyenp6JNZLQZs3iGie8Wh0rvCe2pTK5lyd33r+t6SUetgXckHIgHZsxneJzyL747J5mNE/2YzVkVbqvoDsTS2kZ4A849HrxWZ8athPiNz5LWW8N9X8N1gC+WxrIXfG7u6eAtKCtow7IWWdYPMBIiCtRQ==
   </data>
  </layer>
- <objectgroup name="ground" width="50" height="10">
+ <objectgroup name="ground" width="250" height="10">
   <object x="0" y="0">
-   <polyline points="-12,-700 3,706 3496,696 3502,-710"/>
+   <polyline points="-12,-700 3,706 17508,707 17494,-998"/>
   </object>
  </objectgroup>
- <objectgroup name="objects" width="50" height="10">
+ <objectgroup name="objects" width="250" height="10">
   <object x="632" y="351">
    <polyline points="0,0 635,0"/>
   </object>
@@ -41,8 +41,74 @@
   <object x="0" y="699">
    <polyline points="0,0 137,-140 349,-140 485,-277 555,-279"/>
   </object>
+  <object x="3984" y="700">
+   <polyline points="0,0 336,-352 644,-352 784,-216 1472,-208 1664,-416 1972,-420 2108,-276 3648,-276 3924,-8"/>
+  </object>
+  <object x="7840" y="352">
+   <polyline points="0,0 632,-4"/>
+  </object>
+  <object x="8616" y="496">
+   <polyline points="0,0 616,-4"/>
+  </object>
+  <object x="9372" y="340">
+   <polyline points="0,0 636,12"/>
+  </object>
+  <object x="9944" y="136">
+   <polyline points="0,0 628,0"/>
+  </object>
+  <object x="9112" y="144">
+   <polyline points="0,0 336,0"/>
+  </object>
+  <object x="8832" y="276">
+   <polyline points="0,0 132,0"/>
+  </object>
+  <object x="10148" y="560">
+   <polyline points="0,0 628,-4"/>
+  </object>
+  <object x="10848" y="272">
+   <polyline points="0,0 620,4"/>
+  </object>
+  <object x="11620" y="420">
+   <polyline points="0,0 628,0"/>
+  </object>
+  <object x="11824" y="208">
+   <polyline points="0,0 140,0"/>
+  </object>
+  <object x="12112" y="64">
+   <polyline points="0,0 348,0"/>
+  </object>
+  <object x="12392" y="280">
+   <polyline points="0,0 632,0"/>
+  </object>
+  <object x="12948" y="72">
+   <polyline points="0,0 636,-4"/>
+  </object>
+  <object x="13152" y="480">
+   <polyline points="0,0 636,12"/>
+  </object>
+  <object x="14072" y="344">
+   <polyline points="0,0 616,4"/>
+  </object>
+  <object x="14840" y="492">
+   <polyline points="0,0 632,-4"/>
+  </object>
+  <object x="15052" y="276">
+   <polyline points="0,0 140,0"/>
+  </object>
+  <object x="15328" y="140">
+   <polyline points="0,0 356,4"/>
+  </object>
+  <object x="15616" y="348">
+   <polyline points="0,0 620,4"/>
+  </object>
+  <object x="16168" y="140">
+   <polyline points="0,0 628,0"/>
+  </object>
+  <object x="16376" y="560">
+   <polyline points="0,0 628,4"/>
+  </object>
  </objectgroup>
- <objectgroup name="enemies" width="50" height="10">
+ <objectgroup name="enemies" width="250" height="10">
   <object x="997" y="276" width="55" height="58">
    <ellipse/>
   </object>

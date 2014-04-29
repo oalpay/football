@@ -3,16 +3,72 @@ football.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+bg1
+  rotate: false
+  xy: 1, 228
+  size: 481, 274
+  orig: 481, 274
+  offset: 0, 0
+  index: -1
+ground2
+  rotate: false
+  xy: 1, 63
+  size: 478, 163
+  orig: 478, 163
+  offset: 0, 0
+  index: -1
+male_runner_1
+  rotate: false
+  xy: 484, 352
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 1
+male_runner_1
+  rotate: false
+  xy: 586, 352
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 2
+male_runner_1
+  rotate: false
+  xy: 688, 352
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 3
+male_runner_1
+  rotate: false
+  xy: 790, 352
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 4
+male_runner_1
+  rotate: false
+  xy: 892, 352
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 5
+male_runner_1
+  rotate: false
+  xy: 484, 200
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 6
 ball
   rotate: false
-  xy: 1, 1
+  xy: 586, 270
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 textbubble
   rotate: false
-  xy: 83, 21
+  xy: 1, 1
   size: 60, 60
   split: 30, 29, 30, 29
   orig: 60, 60

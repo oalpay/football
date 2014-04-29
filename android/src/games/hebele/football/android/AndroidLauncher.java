@@ -1,4 +1,4 @@
-package com.zartzurt.game.android;
+package games.hebele.football.android;
 
 import games.hebele.football.MyGdxGame;
 import android.os.Bundle;
