@@ -1,23 +1,19 @@
 package games.hebele.football.screens;
 
-import games.hebele.football.Variables;
+import games.hebele.football.helpers.Assets;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class LevelSelectionScreen implements Screen {
@@ -55,9 +51,9 @@ public class LevelSelectionScreen implements Screen {
 		
 		stage = new Stage(new ExtendViewport(Virtual_Width, Virtual_Height));
 		
-		skin = new Skin(Gdx.files.internal("data/touchpad.json"));
+		skin = Assets.manager.get(Assets.skin,Skin.class);
+		
 		screenTable = new Table();
-		//screenTable.setPosition(Virtual_Width/2, Virtual_Height/2);
 		screenTable.setFillParent(true);
 		
 		float btnWidth=130;

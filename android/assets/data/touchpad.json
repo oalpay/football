@@ -1,7 +1,8 @@
 {
 	com.badlogic.gdx.graphics.g2d.BitmapFont: { 
 		default-font: 	{"file": "fonts/bookantiqua_white_32.fnt"},
-		"white32": 		{"file": "fonts/bookantiqua_white_32.fnt"}
+		"white32": 		{"file": "fonts/bookantiqua_white_32.fnt"},
+		"white64": 		{"file": "fonts/bookantiqua_white_64.fnt"}
 	},
 	com.badlogic.gdx.graphics.Color: {
 	    green: { a: 1, b: 0, g: 1, r: 0 },
@@ -20,5 +21,12 @@
 	    panel_green: 	{ up: green_panel, 	down: yellow_panel, font: white32, fontColor:white },
 	    panel_blue: 	{ up: blue_panel, 	down: yellow_panel, font: white32, fontColor:white },
 	    panel_grey: 	{ up: grey_panel, 	down: grey_panel, font: white32, fontColor:white }
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	    default: { font: default-font, fontColor: white },
+	    ending: { font: white64, fontColor: white }
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
+		default: { background: touchBackground, knob: touchKnob }
 	}
 }

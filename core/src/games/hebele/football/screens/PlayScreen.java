@@ -230,7 +230,7 @@ public class PlayScreen implements Screen {
 				Enemy e = new Enemy(world, stage, player, posX, posY);
 				enemies.add(e);
 				
-				System.out.println(posX+" , "+posY);
+				//System.out.println(posX+" , "+posY);
 			}
 		}
 		//------------ENEMIES

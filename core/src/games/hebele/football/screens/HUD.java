@@ -2,26 +2,19 @@ package games.hebele.football.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-
+import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.GameController;
 import games.hebele.football.helpers.GameController.GameState;
 import games.hebele.football.objects.Player;
@@ -31,13 +24,7 @@ public class HUD {
 	private Stage stage;
 	
     private Touchpad touchpad;
-    private TouchpadStyle touchpadStyle;
-    private Skin touchpadSkin;
-    
     private Skin skin;
-    
-    private Drawable touchBackground;
-    private Drawable touchKnob;
     
     private ImageButton btnController, btnPlay;
     
@@ -45,19 +32,23 @@ public class HUD {
     
     private float controllerWidth, controllerHeight;
     
-    private Label gameOverBubble, gameWonBubble;
     private Image gameEndCurtain;
     private ImageButton btnMenu, btnRestart;
+    
+    private boolean isGameRunning;
     
 	public HUD(Stage stage, final Player player){
 		
 		this.player=player;
 		this.stage=stage;
 		
+		skin = Assets.manager.get(Assets.skin,Skin.class);
+		
 		initHUD();
 	}
 	
 	public void initHUD(){
+		isGameRunning=true;
         initTouchPad();
         initControllers();
         initButtons();
@@ -65,26 +56,9 @@ public class HUD {
 	}
 	
 	public void initTouchPad(){
-		TextureAtlas touchpadAtlas = new TextureAtlas(Gdx.files.internal("data/touchpad.atlas"));
 		
-		skin = new Skin(Gdx.files.internal("data/touchpad.json"),touchpadAtlas);
-		
-        //Create a touchpad skin    
-        touchpadSkin = new Skin();
-        //Set background image
-        touchpadSkin.addRegions(touchpadAtlas);
-        touchpadStyle = new TouchpadStyle();
-        
-        //Create Drawable's from TouchPad skin
-        touchBackground = touchpadSkin.getDrawable("touchBackground");
-        touchKnob = touchpadSkin.getDrawable("touchKnob");
-        
-        //Apply the Drawables to the TouchPad Style
-        touchpadStyle.background = touchBackground;
-        touchpadStyle.knob = touchKnob;
-        
         //Create new TouchPad with the created style
-        touchpad = new Touchpad(10, touchpadStyle);
+        touchpad = new Touchpad(10, skin);
         
         float touchPadSize=250;
         float touchPadGap=10;
@@ -191,21 +165,21 @@ public class HUD {
 			if(x<controllerWidth/3){ //GO TO LEFT
 				player.setWalkingRight(false);
 				player.setWalkingLeft(true);
-				System.out.println("left");
+				//System.out.println("left");
 			}
 			else if(x>controllerWidth*2/3){ //GO TO RIGHT
 				player.setWalkingLeft(false);
 				player.setWalkingRight(true);
-				System.out.println("right");
+				//System.out.println("right");
 			}
 			else{ //STOP AT X AXIS
 			//	player.setWalkingLeft(false);
 			//	player.setWalkingRight(false);
 			}
 			
-			if(y>controllerHeight/2){
+			if(y>controllerHeight*0.4f){
 				player.jump();
-				System.out.println("up");
+				//System.out.println("up");
 			}
 		}
 	}
@@ -223,56 +197,16 @@ public class HUD {
 	}
 	
 	public void initGameEndScreens(){
-		TextureAtlas textureAtlas= new TextureAtlas("data/touchpad.atlas");
-
-		NinePatch patch = new NinePatch(textureAtlas.findRegion("panelbg"),28,28,28,28);
-		NinePatchDrawable pD = new NinePatchDrawable(patch);
-
-		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/bookantiqua_white_64.fnt"));
-		
-		
-		LabelStyle style = new LabelStyle();
-		style.background=pD;
-		style.font=font;
-		
-		gameOverBubble = new Label("GAME OVER!",style);
-		gameWonBubble = new Label("VICTORY!",style);
-		
-
-		gameOverBubble.setSize(stage.getWidth()*0.6f, stage.getHeight()*0.7f);
-		gameWonBubble.setSize(stage.getWidth()*0.6f, stage.getHeight()*0.7f);
-		
-		//gameOverBubble.pack();
-		//gameWonBubble.pack();
-		
-		gameOverBubble.setPosition(stage.getWidth()/2 - gameOverBubble.getWidth()/2, stage.getHeight()/2 - gameOverBubble.getHeight()/2);
-		gameWonBubble.setPosition(stage.getWidth()/2 - gameWonBubble.getWidth()/2, stage.getHeight()/2 - gameWonBubble.getHeight()/2);
-		
 		
 		gameEndCurtain = new Image(skin,"perde");
 		gameEndCurtain.setSize(stage.getWidth(), stage.getHeight());
 
 		stage.addActor(gameEndCurtain);
-		stage.addActor(gameOverBubble);
-		stage.addActor(gameWonBubble);
-		
 		gameEndCurtain.setVisible(false);
-		gameOverBubble.setVisible(false);
-		gameWonBubble.setVisible(false);
-		
-		
 		
 		btnRestart = new ImageButton(skin,"restart");
-		
-		float btnSize=100;
-		float btnX=gameOverBubble.getX() + gameOverBubble.getWidth()/2;
-		float btnY=gameOverBubble.getY();
-		
-		btnRestart.setSize(btnSize, btnSize);
-		btnRestart.setPosition(btnX+10, btnY+btnSize);
-		
-		stage.addActor(btnRestart);
-		btnRestart.setVisible(false);
+		btnMenu = new ImageButton(skin,"menu");
+
 		
 		btnRestart.addListener(new InputListener(){
 			
@@ -289,15 +223,7 @@ public class HUD {
 			}
 		});
 		
-		
-		btnMenu = new ImageButton(skin,"menu");
-		
-		btnMenu.setSize(btnSize, btnSize);
-		btnMenu.setPosition(btnX-btnSize, btnY+btnSize);
-		
-		stage.addActor(btnMenu);
-		btnMenu.setVisible(false);
-		
+			
 		btnMenu.addListener(new InputListener(){
 			
 			@Override
@@ -312,20 +238,40 @@ public class HUD {
 				((Game)(Gdx.app.getApplicationListener())).setScreen(new LevelSelectionScreen());
 			}
 		});
+		
+
 	}
 	
     //GAME OVER
     public void showGameOver(){
-		btnMenu.setVisible(true);
-    	btnRestart.setVisible(true);
-    	gameEndCurtain.setVisible(true);
-    	gameOverBubble.setVisible(true);
+    	
+    	if(isGameRunning){
+    		
+    		isGameRunning=false;
+
+    		float btnSize=100;
+    		
+    		Table endScreenTable = new Table(skin);
+    		endScreenTable.setBackground("panelbg");
+    		endScreenTable.setSize(stage.getWidth()/2, stage.getHeight()/2);
+    		endScreenTable.setPosition(stage.getWidth()/2 - endScreenTable.getWidth()/2, stage.getHeight()/2 - endScreenTable.getHeight()/2);
+    		
+    		endScreenTable.add(new Label("GAME OVER!",skin,"ending")).colspan(2).padBottom(btnSize/2).row();
+    		endScreenTable.add(btnMenu).size(btnSize);
+    		endScreenTable.add(btnRestart).size(btnSize);
+    		
+    		stage.addActor(endScreenTable);
+    		gameEndCurtain.setVisible(true);
+    	}
     }
     //-------------------------------------------------
 	
     //GAME WON - GRATS
     public void showGameWon(){
-		gameWonBubble.setVisible(true);
+    	if(isGameRunning){
+    		isGameRunning=false;
+    		
+    	}
     }
     //-------------------------------------------------
 

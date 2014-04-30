@@ -42,7 +42,7 @@ public class Ball extends Sprite {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape=circle;
 		fixtureDef.density=0.3f;
-		fixtureDef.friction=0.3f;
+		fixtureDef.friction=0.8f;
 		fixtureDef.restitution=0.4f;
 		
 		

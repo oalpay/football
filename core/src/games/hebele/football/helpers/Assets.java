@@ -13,13 +13,12 @@ public class Assets {
 	public static final String playerPack ="data/player.pack";
 	public static final String touchpadPack ="data/touchpad.pack";
 	
-	public static final String skin ="skin/touchpad.json";
+	public static final String skin ="data/touchpad.json";
 	
 	public static void load(){
 		manager.load(footballPack, TextureAtlas.class);
 		manager.load(playerPack, TextureAtlas.class);
-		
-		//manager.load(skin,Skin.class);
+		manager.load(skin,Skin.class);
 	}
 	
 	public static void dispose(){

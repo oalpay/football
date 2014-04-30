@@ -84,6 +84,7 @@ panelbg
   rotate: false
   xy: 642, 89
   size: 60, 60
+  split: 29, 30, 31, 28
   orig: 60, 60
   offset: 0, 0
   index: -1

@@ -3,35 +3,26 @@ package games.hebele.football.objects;
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
 
-import java.util.List;
-
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactFilter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.physics.box2d.joints.RopeJoint;
 import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
-import com.badlogic.gdx.utils.Array;
 
 public class Player extends Sprite {
 
 	private World world;
-	private Body playerBody, groundBody;
+	private Body playerBody;
 	private Fixture playerFixture, playerSensorFixture;
 	
 	private Ball playerBall;
@@ -41,13 +32,8 @@ public class Player extends Sprite {
     public float playerSpeed=8f;
 	
 
-	private TextureAtlas playerAtlas;
 	private Animation playerAnimation;
-	private float runTime=0;
-	private int playerTowards;  
 	private boolean jump=false;
-	
-	private boolean isGrounded=false;
 	
 	private int numFeetContacts=0;
 	
@@ -231,7 +217,6 @@ public class Player extends Sprite {
 	}
 	
 	public void setGrounded(boolean bool){
-		isGrounded=bool;
 	}
 	
 	public void setJump(boolean bool){
@@ -279,14 +264,15 @@ public class Player extends Sprite {
 			float kickForceX = Variables.playerKickPower * xPercent;
 			float kickForceY = Variables.playerKickPower * yPercent;
 			
-			System.out.println(kickForceX+" , "+kickForceY);
+			System.out.println("Kicking -> X Force: "+kickForceX+" , Y Force: "+kickForceY);
 			
 			Vector2 ballCenter = playerBall.getBody().getWorldCenter();
 			
 			//playerBall.getBody().setTransform(playerBall.getBody().getPosition(), 0);
 			//playerBall.getBody().applyForceToCenter(kickForceX, kickForceY,true);
-			playerBall.getBody().applyLinearImpulse(kickForceX, kickForceY, ballCenter.x, ballCenter.y, true);
 			//ballBody.applyLinearImpulse(50, 0.1f, ballBody.getPosition().x, ballBody.getPosition().y, true);
+			
+			playerBall.getBody().applyLinearImpulse(kickForceX, kickForceY, ballCenter.x, ballCenter.y, true);
 		}
 	}
 	
