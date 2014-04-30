@@ -121,7 +121,7 @@ public class LevelSelectionScreen implements Screen {
 				btn.add(new Image(skin,"lock")).size(113/2, 150/2).center();
 			}
 			
-			btn.addListener(new ClickListener(){
+			btn.addListener(new InputListener(){
 				
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -130,7 +130,7 @@ public class LevelSelectionScreen implements Screen {
 				
 				@Override
 				public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
-					if(!locked && isOver()) ((Game)(Gdx.app.getApplicationListener())).setScreen(new PlayScreen());
+					if(!locked) ((Game)(Gdx.app.getApplicationListener())).setScreen(new PlayScreen());
 				}
 				
 				
