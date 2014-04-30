@@ -252,40 +252,49 @@ public class PlayScreen implements Screen {
     	     }
     	}
     }
-	
+    
+    
+    //GAME IS RUNNING - UPDATE DATA - STEP
+    public void updateGameData(float delta){
+		runTime+=delta;
+		
+		camera.position.x = player.getBody().getWorldCenter().x;
+		camera.position.y = player.getBody().getWorldCenter().y;
+		camera.update();
+
+		sweepDeadBodies();
+		if(player.isPreparePickBall()) player.pickBall();
+		
+		world.step(1/60f, 8, 3);
+
+		player.update(delta,runTime);
+		inputHandler.checkPressedInput(delta);
+		
+		//UPDATE ENEMIES	
+		for(int i=0; i<enemies.size; i++){
+			Enemy e = enemies.get(i);
+			if(!e.isFlaggedForDelete()){
+				e.update(delta, runTime);
+			}
+		}
+    }
+    //------------------------------------------------
+    
+    
+
+    
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		
-		
+			
 		//UPDATE DATAS WHEN GAME IS RUNNING
-		if(GameController.isGameRunning()){
-			runTime+=delta;
-			
-			camera.position.x = player.getBody().getWorldCenter().x;
-			camera.position.y = player.getBody().getWorldCenter().y;
-			camera.update();
-	
-			sweepDeadBodies();
-			if(player.isPreparePickBall()) player.pickBall();
-			
-			world.step(1/60f, 8, 3);
-	
-			player.update(delta,runTime);
-			inputHandler.checkPressedInput(delta);
-			
-			//UPDATE ENEMIES	
-			for(int i=0; i<enemies.size; i++){
-				Enemy e = enemies.get(i);
-				if(!e.isFlaggedForDelete()){
-					e.update(delta, runTime);
-				}
-			}
-		}
+		//SHOW GAME OVER OR GAME WON 
+		if(GameController.isGameRunning()) updateGameData(delta);
+		else if(GameController.isGameOver()) hud.showGameOver();
+		else if(GameController.isGameWon()) hud.showGameWon();
 		//------------------------------------------------
-		
 		
 		//DRAW BACKGROUND
 		spriteBatch.begin();

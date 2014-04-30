@@ -101,6 +101,11 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		}
 		
 		
+		//PLAYER & ENEMY
+		if(checkIfContact(dataA,dataB,"player","enemy")){	
+			GameController.GameOver();
+		}
+		
 		//BALL & ENEMY
 		if(checkIfContact(dataA,dataB,"ball","enemy")){	
 			
@@ -116,8 +121,8 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 			}	
 			if(ball.isKicked()) enemyHit.die();
 			else{ 
-				//enemyHit.setState(ENEMY_STATE.FOLLOW);
-				System.out.println("GAME OVER");
+				//System.out.println("GAME OVER");
+				GameController.GameOver();
 			}
 		}
 		

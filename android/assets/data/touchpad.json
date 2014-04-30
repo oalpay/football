@@ -13,7 +13,8 @@
 	    controller: 	{ up: controller, 	down: controller },
 	    controller2: 	{ up: controller2, 	down: controller2 },
 	    play	: 		{ up: pause, 	down: play, checked: play },
-	    pause	: 		{ up: pause, 	down: play }
+	    restart	: 		{ up: btn_restart, 	down: btn_restart },
+	    menu	: 		{ up: btn_menu, 	down: btn_menu },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	    panel_green: 	{ up: green_panel, 	down: yellow_panel, font: white32, fontColor:white },

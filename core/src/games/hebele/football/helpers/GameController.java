@@ -8,7 +8,7 @@ public class GameController {
 		GAME_RUNNING,
 		GAME_PAUSED,
 		GAME_OVER,
-		GAME_WIN,
+		GAME_WON,
 		GAME_IDLE
 	}
 	
@@ -23,5 +23,28 @@ public class GameController {
 	public static boolean isGameRunning(){
 		return currentState==GameState.GAME_RUNNING;
 	}
-
+	
+	public static boolean isGameOver(){
+		return currentState==GameState.GAME_OVER;
+	}
+	
+	public static boolean isGameWon(){
+		return currentState==GameState.GAME_WON;
+	}
+	
+	public static boolean isGamePaused(){
+		return currentState==GameState.GAME_PAUSED;
+	}
+	
+	public static void GameOver(){
+		currentState=GameState.GAME_OVER;
+	}
+	
+	public static void GameWon(){
+		currentState=GameState.GAME_WON;
+	}
+	
+	public static void resetGame(){
+		currentState=GameState.GAME_RUNNING;
+	}
 }

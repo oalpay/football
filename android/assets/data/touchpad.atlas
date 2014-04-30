@@ -80,17 +80,45 @@ touchKnob
   orig: 72, 72
   offset: 0, 0
   index: -1
+panelbg
+  rotate: false
+  xy: 642, 89
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+btn_menu
+  rotate: false
+  xy: 1, 1
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+btn_restart
+  rotate: false
+  xy: 704, 101
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 pause
   rotate: false
-  xy: 642, 101
+  xy: 51, 1
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 play
   rotate: false
-  xy: 1, 1
+  xy: 754, 101
   size: 48, 48
   orig: 48, 48
+  offset: 0, 0
+  index: -1
+perde
+  rotate: false
+  xy: 1022, 250
+  size: 1, 1
+  orig: 1, 1
   offset: 0, 0
   index: -1
