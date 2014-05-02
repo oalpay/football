@@ -2,6 +2,7 @@ package games.hebele.football.objects;
 
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
+import games.hebele.football.helpers.GameController;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -29,8 +30,6 @@ public class Player extends Sprite {
 	private RopeJoint ballRope;
 	
 	public Vector2 playerMovement;
-    public float playerSpeed=8f;
-	
 
 	private Animation playerAnimation;
 	private boolean jump=false;
@@ -178,7 +177,7 @@ public class Player extends Sprite {
 		//	System.out.println("jump before: " + playerBody.getLinearVelocity());
 		//	playerBody.setTransform(getX(), getY() + 0.01f, 0);
 			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x,0);
-			playerBody.applyLinearImpulse(0, playerSpeed*0.5f, getX(), getY(),true);			
+			playerBody.applyLinearImpulse(0, Variables.playerJumpSpeed, getX(), getY(),true);			
 		//	System.out.println("jump, " + playerBody.getLinearVelocity());				
 		}
 		
@@ -300,16 +299,29 @@ public class Player extends Sprite {
 		return preparePickBall;
 	}
 	
+	public void fixBallPosition(){
+		if(!playerBall.isKicked()){
+			float rotation = playerBall.getBody().getTransform().getRotation();
+			float playerX = playerBody.getPosition().x;
+			float ballY = playerBall.getBody().getPosition().y;
+			
+			if(towardsRight) playerBall.getBody().setTransform(playerX+getWidth(), ballY, rotation);
+			else playerBall.getBody().setTransform(playerX-getWidth(), ballY, rotation);
+			
+			GameController.fixBallPosition=false;
+		}	
+	}
+	
 	public void turnToRight(){			
 		isWalking=true;
 		towardsRight=true;	
-		playerMovement.x=playerSpeed;
+		playerMovement.x=Variables.playerSpeed;
 		setFriction(0);
 		
-		//get ball to right
-		if(!playerBall.isKicked())
-			playerBall.getBody().setTransform(playerBody.getPosition().x+getWidth(), playerBall.getBody().getPosition().y, playerBall.getBody().getTransform().getRotation());
-	
+		//GET THE BALL TO THE RIGHT
+		//USING GAME CONTROLLER TO UPDATE THE BALL BEFORE BOX2D STEP
+		GameController.fixBallPosition=true;
+
 		setFlip(false, false);
 		
 	}
@@ -317,13 +329,13 @@ public class Player extends Sprite {
 	public void turnToLeft(){
 		isWalking=true;
 		towardsRight=false;
-		playerMovement.x=-playerSpeed;
+		playerMovement.x=-Variables.playerSpeed;
 		setFriction(0);
-		
-		//get ball to left
-		if(!playerBall.isKicked())
-			playerBall.getBody().setTransform(playerBody.getPosition().x-getWidth(), playerBall.getBody().getPosition().y, playerBall.getBody().getTransform().getRotation());
-		
+
+		//GET THE BALL TO THE LEFT
+		//USING GAME CONTROLLER TO UPDATE THE BALL BEFORE BOX2D STEP
+		GameController.fixBallPosition=true;
+			
 		setFlip(true, false);
 	}
 	

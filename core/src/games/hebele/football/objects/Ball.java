@@ -3,6 +3,7 @@ package games.hebele.football.objects;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -19,6 +20,7 @@ public class Ball extends Sprite {
 	private TextureAtlas textureAtlas;
 	
 	private boolean isKicked=false;
+	private float rollTime;
 	
 	public Ball(World world, Player player){
 		this.world=world;
@@ -33,7 +35,7 @@ public class Ball extends Sprite {
 		//body def
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type=BodyType.DynamicBody;
-		bodyDef.position.set(3, 5);
+		bodyDef.position.set(4, 5);
 		
 		CircleShape circle = new CircleShape();		
 		circle.setRadius(size/2);
@@ -59,7 +61,13 @@ public class Ball extends Sprite {
 		updateBallSpeed();
 		if(!isKicked)
 			body.setTransform(body.getPosition().x, player.getBody().getPosition().y-player.getHeight()/4, body.getTransform().getRotation());
-	
+		else{
+			rollTime+=delta;
+			if(rollTime>2){
+				Vector2 bV = body.getLinearVelocity();
+				body.setLinearVelocity(bV.x * 0.7f , bV.y);
+			}
+		}
 		//update SPRITE Position and Rotation
 		setPosition(body.getPosition().x-getWidth()/2,body.getPosition().y-getHeight()/2);
 		setRotation(body.getAngle()*MathUtils.radDeg);
@@ -83,6 +91,7 @@ public class Ball extends Sprite {
 	}
 	
 	public void setKicked(){
+		rollTime=0;
 		isKicked=true;
 	}
 	

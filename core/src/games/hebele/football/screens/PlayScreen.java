@@ -264,6 +264,7 @@ public class PlayScreen implements Screen {
 		camera.update();
 
 		sweepDeadBodies();
+		if(GameController.fixBallPosition) player.fixBallPosition();
 		if(player.isPreparePickBall()) player.pickBall();
 		
 		world.step(1/60f, 8, 3);

@@ -76,16 +76,13 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		}*/
 		
 		
-		/*
+		
 		String dataA=fixtureA.getUserData().toString();
 		String dataB=fixtureB.getUserData().toString();
 		
-		if(dataA.equals("steps") || dataB.equals("steps")){
-			if(dataA.equals("ball") || dataB.equals("ball"))
-				return ballBody.getLinearVelocity().y <= 0;
-			else if(fixtureA == playerFixture || fixtureB == playerFixture)
-				return playerBody.getLinearVelocity().y <= 0;
-		}*/
+		if(checkIfContact(dataA,dataB,"ground","player")){	
+				return player.getBody().getLinearVelocity().y <= 0;
+		}
 		return true;
 	}
 
@@ -166,6 +163,12 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 			//System.out.println("warn: FOLLOW");
 		}
 		
+		
+		//PLAYERSENSOR & BALL
+		if(checkIfContact(dataA,dataB,"playerSensor","ball")){	
+			//USING GAME CONTROLLER TO UPDATE THE BALL BEFORE BOX2D STEP
+			GameController.fixBallPosition=true;
+		}
 		
 		//CHECK PLAYER FEET
 		if(checkIfContact(dataA,dataB,"playerSensor","ALL","ball")){

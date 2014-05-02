@@ -2,6 +2,8 @@ package games.hebele.football.helpers;
 
 public class GameController {
 	
+	public static boolean fixBallPosition = false; //USING GAME CONTROLLER TO UPDATE THE BALL BEFORE BOX2D STEP
+	
 	private static GameState currentState = GameState.GAME_RUNNING;
 	
 	public enum GameState{

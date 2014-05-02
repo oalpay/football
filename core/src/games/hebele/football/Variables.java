@@ -14,5 +14,6 @@ public class Variables {
 	public static final float BALL_ROPE_LENGTH=1f;
 	
     public static float playerSpeed=4f;
+    public static float playerJumpSpeed=3.2f;
     public static float playerKickPower=1.5f;
 }
