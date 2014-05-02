@@ -67,6 +67,7 @@ public class PlayScreen implements Screen {
 	private Player player;
 	
 	private Stage stage;
+	private ExtendViewport viewport;
 	private OrthographicCamera camera;
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer mapRenderer;
@@ -102,8 +103,8 @@ public class PlayScreen implements Screen {
 		
 		//stage = new Stage(Virtual_Width*Variables.PIXEL_TO_METER,Virtual_Height*Variables.PIXEL_TO_METER,true,spriteBatch);
 
-		
-		stage = new Stage(new ExtendViewport(Variables.VIRTUAL_STAGE_WIDTH, Variables.VIRTUAL_STAGE_HEIGHT), spriteBatch);
+		viewport = new ExtendViewport(Variables.VIRTUAL_STAGE_WIDTH, Variables.VIRTUAL_STAGE_HEIGHT);
+		stage = new Stage(viewport, spriteBatch);
 		//stage.getViewport().update((int), (int)Variables.VIRTUAL_STAGE_HEIGHT);
 
 		
@@ -288,6 +289,8 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//IOS VIEWPORT FIX
+		Gdx.gl.glViewport(viewport.getViewportX(), viewport.getViewportY(), viewport.getViewportWidth(), viewport.getViewportHeight()); 
 			
 		//UPDATE DATAS WHEN GAME IS RUNNING
 		//SHOW GAME OVER OR GAME WON 
