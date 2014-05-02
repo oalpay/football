@@ -91,7 +91,7 @@ public class PlayScreen implements Screen {
 	@Override
 	public void show() {
 		
-		Virtual_Width=Variables.PIXEL_SIZE*Variables.PIXEL_PER_WIDTH/Variables.PIXEL_TO_METER;
+		Virtual_Width=Variables.TILE_SIZE*Variables.TILES_PER_SCREENWIDTH/Variables.PIXEL_TO_METER;
 		Virtual_Height=Virtual_Width*Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
 		
 		Variables.Virtual_Ratio = Variables.VIRTUAL_STAGE_WIDTH / Virtual_Width;

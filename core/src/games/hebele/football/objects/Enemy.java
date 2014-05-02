@@ -142,7 +142,7 @@ public class Enemy extends Sprite {
 	
 	public void updateBubblePosition(){
 		
-		float Virtual_Width=Variables.PIXEL_SIZE*Variables.PIXEL_PER_WIDTH/Variables.PIXEL_TO_METER;
+		float Virtual_Width=Variables.TILE_SIZE*Variables.TILES_PER_SCREENWIDTH/Variables.PIXEL_TO_METER;
 		
 		float bubbleX = Variables.VIRTUAL_STAGE_WIDTH * (body.getPosition().x - player.getBody().getPosition().x)/Virtual_Width;
 		
