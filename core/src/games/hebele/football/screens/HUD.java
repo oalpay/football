@@ -177,7 +177,7 @@ public class HUD {
 			//	player.setWalkingRight(false);
 			}
 			
-			if(y>controllerHeight*0.4f){
+			if(y>controllerHeight*0.6f){
 				player.jump();
 				//System.out.println("up");
 			}

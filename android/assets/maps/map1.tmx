@@ -8,11 +8,6 @@
    eJztl0EKwjAQRXsLT1DwGF7CvXvBtYrH0JWn6A1NwICENK1JJvmZ/gd/2ekwP7+ZDgMhhBCCxTugGC+ja0Q3sU63Cf3Bhd7Igzbj41eEILAmE6QdW/DnbrT3dGna0TpaeCN1P6HuFr2df23+lMqmrXMyenp6JNZLQZs3iGie8Wh0rvCe2pTK5lyd33r+t6SUetgXckHIgHZsxneJzyL747J5mNE/2YzVkVbqvoDsTS2kZ4A849HrxWZ8athPiNz5LWW8N9X8N1gC+WxrIXfG7u6eAtKCtow7IWWdYPMBIiCtRQ==
   </data>
  </layer>
- <objectgroup name="ground" width="250" height="10">
-  <object x="0" y="0">
-   <polyline points="-12,-700 3,706 17508,707 17494,-998"/>
-  </object>
- </objectgroup>
  <objectgroup name="objects" width="250" height="10">
   <object x="632" y="351">
    <polyline points="0,0 635,0"/>

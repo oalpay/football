@@ -153,40 +153,42 @@ public class PlayScreen implements Screen {
 		FixtureDef fixtureDef = new FixtureDef();
 		
 		//BOUNDRIES OF MAP
+		//CREATE DYNAMICALLY
 		float[] vertices;
 		Vector2[] groundVertices=null;
 		
-		for(MapObject object : map.getLayers().get("ground").getObjects()){
-			if(object instanceof PolylineMapObject){
-				vertices = ((PolylineMapObject) object).getPolyline().getTransformedVertices();
-				groundVertices = new Vector2[vertices.length/2+1];
-				
-				int verticeNum=0;
-				for(int i=0; i<vertices.length;){
-					  groundVertices[i/2]=new Vector2(vertices[i]/Variables.PIXEL_TO_METER,vertices[i+1]/Variables.PIXEL_TO_METER);
-					  i=i+2;
-					  verticeNum++;
-				}
-				groundVertices[verticeNum]=new Vector2(groundVertices[0]);
-				
-				//ground shape
-				bodyDef.type=BodyType.StaticBody;
-				bodyDef.position.set(0,0);
-				
-				ChainShape groundShape = new ChainShape();
-				groundShape.createChain(groundVertices);
-				
-				fixtureDef.shape=groundShape;
-				fixtureDef.friction=0.1f;
-				fixtureDef.restitution=0;
-				
-				groundBody = world.createBody(bodyDef);
-				groundBody.createFixture(fixtureDef).setUserData("ground");
-				groundShape.dispose();
-				
-			}
-		}
+		int tileNumX = map.getProperties().get("width", Integer.class);
+		
+		//TOP CORNERS Y VALUE ARE DOUBLED TO SET THE CEILING HIGHER THAN THE TILES
+		int tileNumY = map.getProperties().get("height", Integer.class) * 2;
+
+		groundVertices = new Vector2[5];
+		
+		//GET 4 CORNERS OF THE WORLD
+		groundVertices[0]=new Vector2(0,0);
+		groundVertices[1]=new Vector2(0,tileNumY*Variables.TILE_SIZE/Variables.PIXEL_TO_METER);
+		groundVertices[2]=new Vector2(tileNumX*Variables.TILE_SIZE/Variables.PIXEL_TO_METER,tileNumY*Variables.TILE_SIZE/Variables.PIXEL_TO_METER);
+		groundVertices[3]=new Vector2(tileNumX*Variables.TILE_SIZE/Variables.PIXEL_TO_METER,0);
+		groundVertices[4]=new Vector2(0,0);
+		
+		//ground shape
+		bodyDef.type=BodyType.StaticBody;
+		bodyDef.position.set(0,0);
+		
+		ChainShape groundShape = new ChainShape();
+		
+		groundShape.createChain(groundVertices);
+		
+		fixtureDef.shape=groundShape;
+		fixtureDef.friction=0.1f;
+		fixtureDef.restitution=0;
+		
+		groundBody = world.createBody(bodyDef);
+		groundBody.createFixture(fixtureDef).setUserData("border");
+		groundShape.dispose();
 		//---------------------BOUNDRIES OF MAP
+		
+		
 		
 		//STEPS
 		for(MapObject object : map.getLayers().get("objects").getObjects()){
@@ -204,7 +206,7 @@ public class PlayScreen implements Screen {
 				bodyDef.type=BodyType.StaticBody;
 				bodyDef.position.set(0,0);
 				
-				ChainShape groundShape = new ChainShape();
+				groundShape = new ChainShape();
 				groundShape.createChain(groundVertices);
 				
 				fixtureDef.shape=groundShape;
