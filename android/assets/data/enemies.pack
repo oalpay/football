@@ -1,0 +1,89 @@
+
+enemies.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+droid
+  rotate: false
+  xy: 1, 165
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 1
+droid
+  rotate: false
+  xy: 1, 83
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 2
+droid
+  rotate: false
+  xy: 59, 165
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 3
+gnu
+  rotate: false
+  xy: 1, 1
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 1
+gnu
+  rotate: false
+  xy: 59, 83
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 2
+gnu
+  rotate: false
+  xy: 117, 165
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 3
+kit
+  rotate: false
+  xy: 59, 1
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 1
+kit
+  rotate: false
+  xy: 117, 83
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 2
+kit
+  rotate: false
+  xy: 175, 165
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 3
+wilber
+  rotate: false
+  xy: 117, 1
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 1
+wilber
+  rotate: false
+  xy: 175, 83
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 2
+wilber
+  rotate: false
+  xy: 175, 1
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: 3

@@ -11,6 +11,7 @@ public class Assets {
 	
 	public static final String footballPack ="data/football.pack";
 	public static final String playerPack ="data/player.pack";
+	public static final String enemyPack ="data/enemies.pack";
 	public static final String touchpadPack ="data/touchpad.pack";
 	
 	public static final String skin ="data/touchpad.json";
@@ -18,6 +19,7 @@ public class Assets {
 	public static void load(){
 		manager.load(footballPack, TextureAtlas.class);
 		manager.load(playerPack, TextureAtlas.class);
+		manager.load(enemyPack, TextureAtlas.class);
 		manager.load(skin,Skin.class);
 	}
 	

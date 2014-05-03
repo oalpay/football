@@ -31,7 +31,7 @@
    <polyline points="0,0 624,0"/>
   </object>
   <object x="2939" y="561">
-   <polyline points="0,0 555,0"/>
+   <polyline points="0,0 629,0"/>
   </object>
   <object x="0" y="699">
    <polyline points="0,0 137,-140 349,-140 485,-277 555,-279"/>
@@ -104,13 +104,19 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies" width="250" height="10">
-  <object x="997" y="276" width="55" height="58">
+  <object name="Kit" type="kit" x="997" y="276" width="55" height="58">
    <ellipse/>
   </object>
-  <object x="1864" y="433" width="52" height="55">
+  <object name="Droid" type="droid" x="1864" y="433" width="52" height="55">
    <ellipse/>
   </object>
-  <object x="2524" y="309" width="42" height="39">
+  <object name="Wilber" x="3015" y="76" width="42" height="39">
+   <ellipse/>
+  </object>
+  <object name="Gnu" x="2434" y="302" width="42" height="39">
+   <ellipse/>
+  </object>
+  <object name="Gnu" x="3173" y="474" width="42" height="39">
    <ellipse/>
   </object>
  </objectgroup>

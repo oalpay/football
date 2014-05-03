@@ -1,8 +1,10 @@
 package games.hebele.football.objects;
 
 import games.hebele.football.Variables;
+import games.hebele.football.helpers.Assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Array;
 
 public class Enemy extends Sprite {
 
@@ -33,6 +36,11 @@ public class Enemy extends Sprite {
 	private Body body;
 	private Fixture fixture;
 	
+	public TextureAtlas textureAtlas;
+	public Animation enemyAnimation;
+	
+	
+	public Array<String> textAlternatives = new Array<String>();
 	private Label textBubble;
 	
 	private float height, width;
@@ -62,9 +70,12 @@ public class Enemy extends Sprite {
 		
 		setSize(width,height);
 		
-		TextureAtlas playerAtlas= new TextureAtlas("data/player.pack");
-
-		setRegion(playerAtlas.findRegion("p2_walk01"));
+		//GET THE TEXTURE ATLAS OF ALL ENEMIES
+		//THE RELEVANT REGIONS IS SET AT THE SUB ENEMY CLASS
+		textureAtlas = Assets.manager.get(Assets.enemyPack, TextureAtlas.class);
+		
+		//TextureAtlas playerAtlas= new TextureAtlas("data/player.pack");
+		//setRegion(playerAtlas.findRegion("p2_walk01"));
 		
 		//PLAYER SHAPE
 		//body def
@@ -129,11 +140,15 @@ public class Enemy extends Sprite {
 	}
 	
 	public void updateBubbleText(){
+		
+		textBubble.setText(textAlternatives.get(MathUtils.random(textAlternatives.size-1)));
+		
+		/*
 		int rnd = MathUtils.random(1,3);
 		if(rnd==1) textBubble.setText("Keserim Topunu!");
 		else if(rnd==2) textBubble.setText("Oðlum oynamasanýza burada!");
 		else if(rnd==3) textBubble.setText("Camlarý kýracaksýn, ben de kafaný kýracaðým!");
-		
+		*/
 		//textBubble.setSize(100, 100);
 		//textBubble.setWrap(true);
 		
@@ -206,6 +221,12 @@ public class Enemy extends Sprite {
 		
 		//update SPRITE Position
 		setPosition(body.getPosition().x-width/2,body.getPosition().y-height/2);
+		
+		//update SPRITE animation and direction
+		//if(isWalking) 
+		setRegion(enemyAnimation.getKeyFrame(runTime));	
+		if(curSpeed >=0 ) setFlip(false, false);
+		else setFlip(true, false);
 	}
 	
 	public void setState(ENEMY_STATE state){
