@@ -1,7 +1,8 @@
-package games.hebele.football.objects;
+package games.hebele.football.objects.enemies;
 
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
+import games.hebele.football.objects.Player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -47,16 +48,17 @@ public class Enemy extends Sprite {
 	
 	private boolean isDead=false;
 	
-	private Vector2 targetLeft, targetRight;
+	private Vector2 targetHome, targetLeft, targetRight;
 	
 	private float moveSpeed=2f;
 	private float curSpeed;
 	
 	public enum ENEMY_STATE{
-		IDLE, PATROL, FOLLOW, ATTACK 
+		IDLE, PATROL, FOLLOW, ATTACK, RETURNHOME 
 	}
 
-	private ENEMY_STATE state=ENEMY_STATE.PATROL;
+	private ENEMY_STATE defaultBehaviour;
+	private ENEMY_STATE currentState;
 	
 	public Enemy(World world, Stage stage, Player player, float posX, float posY){
 		this.world=world;
@@ -115,7 +117,33 @@ public class Enemy extends Sprite {
 		body.setUserData(this);
 		
 		initTextBubble();
-		
+	}
+	
+	public void resetBehaviour(){
+		currentState = defaultBehaviour;
+	}
+	
+	public void calmDown(){
+		stopTalking();
+	}
+	
+	public void initDefaultBehaviour(ENEMY_STATE state){
+		defaultBehaviour=state;
+		resetBehaviour();
+	}
+	
+	public void warnEnemy(){
+		currentState = ENEMY_STATE.FOLLOW;
+		updateBubbleText();
+		startTalking();
+	}
+	
+	public void startTalking(){
+		textBubble.setVisible(true);
+	}
+	
+	public void stopTalking(){
+		textBubble.setVisible(false);
 	}
 	
 	public void initTextBubble(){
@@ -140,18 +168,7 @@ public class Enemy extends Sprite {
 	}
 	
 	public void updateBubbleText(){
-		
 		textBubble.setText(textAlternatives.get(MathUtils.random(textAlternatives.size-1)));
-		
-		/*
-		int rnd = MathUtils.random(1,3);
-		if(rnd==1) textBubble.setText("Keserim Topunu!");
-		else if(rnd==2) textBubble.setText("Oðlum oynamasanýza burada!");
-		else if(rnd==3) textBubble.setText("Camlarý kýracaksýn, ben de kafaný kýracaðým!");
-		*/
-		//textBubble.setSize(100, 100);
-		//textBubble.setWrap(true);
-		
 		textBubble.pack();
 	}
 	
@@ -162,6 +179,25 @@ public class Enemy extends Sprite {
 		float bubbleX = Variables.VIRTUAL_STAGE_WIDTH * (body.getPosition().x - player.getBody().getPosition().x)/Virtual_Width;
 		
 		textBubble.setPosition(Variables.VIRTUAL_STAGE_WIDTH/2 + bubbleX - textBubble.getWidth()/2, Variables.VIRTUAL_STAGE_HEIGHT*0.6f);
+	}
+	
+	public void stateReturnHome(){
+		Vector2 curPos = body.getPosition();
+		Vector2 curVel = body.getLinearVelocity();
+
+		float moveGap=0.3f;
+		
+		if(Math.abs(curPos.x - targetHome.x) < moveGap){
+			resetBehaviour();
+			body.setLinearVelocity(0, 0);
+			return;
+		}
+		
+		
+		if(curSpeed<=0 && curPos.x<=targetHome.x + moveGap) curSpeed=moveSpeed;
+		else if(curSpeed>0 && curPos.x>=targetHome.x - moveGap) curSpeed=-moveSpeed;
+		
+		body.setLinearVelocity(curSpeed, curVel.y);
 	}
 	
 	public void stateAttack(){
@@ -181,15 +217,11 @@ public class Enemy extends Sprite {
 		
 		body.setLinearVelocity(curSpeed, curVel.y);
 		
-		textBubble.setVisible(true);
-		
 		updateBubblePosition();
 	}
 	
 	public void statePatrol(){
-		
-		textBubble.setVisible(false);
-		
+
 		Vector2 curPos = body.getPosition();
 		Vector2 curVel = body.getLinearVelocity();
 		
@@ -203,7 +235,7 @@ public class Enemy extends Sprite {
 	
 	public void update(float delta, float runTime){
 		
-		switch(state){
+		switch(currentState){
 		default:
 		case IDLE:
 			break;
@@ -215,6 +247,9 @@ public class Enemy extends Sprite {
 			break;
 		case ATTACK:
 			stateAttack();
+			break;
+		case RETURNHOME:
+			stateReturnHome();
 			break;
 		}
 
@@ -230,22 +265,7 @@ public class Enemy extends Sprite {
 	}
 	
 	public void setState(ENEMY_STATE state){
-		this.state=state;
-		
-		switch(state){
-		default:
-		case IDLE:
-			break;
-		case PATROL:
-			
-			break;
-		case FOLLOW:
-			updateBubbleText();
-			break;
-		case ATTACK:
-			
-			break;
-		}
+		this.currentState=state;
 	}
 	
 	public void die(){
@@ -266,6 +286,14 @@ public class Enemy extends Sprite {
 			targetLeft=v2;
 			targetRight=v1;
 		}
+	}
+	
+	public void setHome(Vector2 home){
+		targetHome = new Vector2(home);
+	}
+	
+	public Vector2 getPosition(){
+		return body.getPosition();
 	}
 	
 }

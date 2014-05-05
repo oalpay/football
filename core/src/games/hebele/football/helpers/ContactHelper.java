@@ -1,8 +1,8 @@
 package games.hebele.football.helpers;
 
 import games.hebele.football.objects.Ball;
-import games.hebele.football.objects.Enemy;
-import games.hebele.football.objects.Enemy.ENEMY_STATE;
+import games.hebele.football.objects.enemies.Enemy;
+import games.hebele.football.objects.enemies.Enemy.ENEMY_STATE;
 import games.hebele.football.objects.Player;
 
 import com.badlogic.gdx.math.Vector2;
@@ -53,7 +53,10 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 					if(dataA.equals("ground"))
 						e =(Enemy) contact.getFixtureB().getBody().getUserData();
 					
-					e.setState(state);
+					if(state == ENEMY_STATE.FOLLOW)
+						e.warnEnemy();
+					else
+						e.calmDown();
 				}
 			}
 		}
@@ -136,6 +139,7 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 				((ChainShape)contact.getFixtureA().getShape()).getVertex(0, v1);
 				((ChainShape)contact.getFixtureA().getShape()).getVertex(1, v2);
 				
+				enemy.setHome(enemy.getPosition());
 				enemy.setTargets(v1,v2);
 				
 			}

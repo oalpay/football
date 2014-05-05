@@ -5,7 +5,6 @@ import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.ContactHelper;
 import games.hebele.football.helpers.GameController;
 import games.hebele.football.helpers.InputHandler;
-import games.hebele.football.objects.Enemy;
 import games.hebele.football.objects.Player;
 import games.hebele.football.objects.enemies.*;
 

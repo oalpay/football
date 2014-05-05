@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import games.hebele.football.objects.Enemy;
 import games.hebele.football.objects.Player;
 
-public class Wilber extends Enemy {
+public class Wilber extends EnemyPatrolling {
 
 	public Wilber(World world, Stage stage, Player player, float posX,
 			float posY) {
