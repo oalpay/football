@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -22,8 +23,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
 
@@ -40,6 +39,7 @@ public class Enemy extends Sprite {
 	public TextureAtlas textureAtlas;
 	public Animation enemyAnimation;
 	
+	private BehaviourMovement IMovement;
 	
 	public Array<String> textAlternatives = new Array<String>();
 	private Label textBubble;
@@ -76,8 +76,6 @@ public class Enemy extends Sprite {
 		//THE RELEVANT REGIONS IS SET AT THE SUB ENEMY CLASS
 		textureAtlas = Assets.manager.get(Assets.enemyPack, TextureAtlas.class);
 		
-		//TextureAtlas playerAtlas= new TextureAtlas("data/player.pack");
-		//setRegion(playerAtlas.findRegion("p2_walk01"));
 		
 		//PLAYER SHAPE
 		//body def
@@ -125,6 +123,7 @@ public class Enemy extends Sprite {
 	
 	public void calmDown(){
 		stopTalking();
+		IMovement.stateCalmDown();
 	}
 	
 	public void initDefaultBehaviour(ENEMY_STATE state){
@@ -181,87 +180,47 @@ public class Enemy extends Sprite {
 		textBubble.setPosition(Variables.VIRTUAL_STAGE_WIDTH/2 + bubbleX - textBubble.getWidth()/2, Variables.VIRTUAL_STAGE_HEIGHT*0.6f);
 	}
 	
-	public void stateReturnHome(){
-		Vector2 curPos = body.getPosition();
-		Vector2 curVel = body.getLinearVelocity();
-
-		float moveGap=0.3f;
-		
-		if(Math.abs(curPos.x - targetHome.x) < moveGap){
-			resetBehaviour();
-			body.setLinearVelocity(0, 0);
-			return;
-		}
-		
-		
-		if(curSpeed<=0 && curPos.x<=targetHome.x + moveGap) curSpeed=moveSpeed;
-		else if(curSpeed>0 && curPos.x>=targetHome.x - moveGap) curSpeed=-moveSpeed;
-		
-		body.setLinearVelocity(curSpeed, curVel.y);
-	}
-	
-	public void stateAttack(){
-		
-	}
-	
-	public void stateFollow(){
-		
-		
-		Vector2 curPos = body.getPosition();
-		Vector2 curVel = body.getLinearVelocity();
-		
-		Vector2 playerPos = player.getBody().getPosition();
-		
-		if(curSpeed<=0 && curPos.x<=playerPos.x) curSpeed=moveSpeed;
-		else if(curSpeed>0 && curPos.x>=playerPos.x) curSpeed=-moveSpeed;
-		
-		body.setLinearVelocity(curSpeed, curVel.y);
-		
-		updateBubblePosition();
-	}
-	
-	public void statePatrol(){
-
-		Vector2 curPos = body.getPosition();
-		Vector2 curVel = body.getLinearVelocity();
-		
-		float moveGap=0.3f;
-		
-		if(curSpeed<=0 && curPos.x<=targetLeft.x + moveGap) curSpeed=moveSpeed;
-		else if(curSpeed>0 && curPos.x>=targetRight.x - moveGap) curSpeed=-moveSpeed;
-		
-		body.setLinearVelocity(curSpeed, curVel.y);
-	}
 	
 	public void update(float delta, float runTime){
 		
 		switch(currentState){
+		
 		default:
 		case IDLE:
+			curSpeed=0;
 			break;
 		case PATROL:
-			statePatrol();
+			IMovement.statePatrol();
 			break;
 		case FOLLOW:
-			stateFollow();
+			IMovement.stateFollow();
 			break;
+		case RETURNHOME:
+			IMovement.stateReturnHome();
+			break;
+			/*
 		case ATTACK:
 			stateAttack();
 			break;
-		case RETURNHOME:
-			stateReturnHome();
-			break;
+			*/
 		}
-
 		
 		//update SPRITE Position
 		setPosition(body.getPosition().x-width/2,body.getPosition().y-height/2);
 		
 		//update SPRITE animation and direction
-		//if(isWalking) 
 		setRegion(enemyAnimation.getKeyFrame(runTime));	
 		if(curSpeed >=0 ) setFlip(false, false);
 		else setFlip(true, false);
+		
+		//ACT
+		act();
+	}
+	
+	
+	public void act(){
+		body.setLinearVelocity(curSpeed, 0);
+		updateBubblePosition();
 	}
 	
 	public void setState(ENEMY_STATE state){
@@ -288,12 +247,57 @@ public class Enemy extends Sprite {
 		}
 	}
 	
+	public Vector2 getTargetLeft(){
+		return targetLeft;
+	}
+	
+	public Vector2 getTargetRight(){
+		return targetRight;
+	}
+	
 	public void setHome(Vector2 home){
 		targetHome = new Vector2(home);
+	}
+	
+	public Vector2 getHome(){
+		return targetHome;
 	}
 	
 	public Vector2 getPosition(){
 		return body.getPosition();
 	}
 	
+	public void setBehaviourMovement(BehaviourMovement bm){
+		IMovement = bm;
+	}
+	
+	public void setSpeedX(float x){
+		curSpeed=x;
+	}
+	
+	public float getSpeedX(){
+		return curSpeed;
+	}
+	
+	public float getPlayerX(){
+		return player.getX();
+	}
+	
+	public void walkRight(){
+		curSpeed=moveSpeed;
+	}
+	
+	public void walkLeft(){
+		curSpeed=-moveSpeed;
+	}
+	
+	public void stopVelocity(){
+		body.setLinearVelocity(0, 0);
+	}
+	
+	public void setEnemyAnimation(String enemyName){
+		enemyAnimation = new Animation(0.1f, textureAtlas.findRegions(enemyName));
+		enemyAnimation.setPlayMode(PlayMode.LOOP);
+		setRegion(enemyAnimation.getKeyFrame(0.2f));
+	}
 }
