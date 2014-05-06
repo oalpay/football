@@ -1,6 +1,7 @@
 {
 	com.badlogic.gdx.graphics.g2d.BitmapFont: { 
 		default-font: 	{"file": "fonts/bookantiqua_white_32.fnt"},
+		"black24": 		{"file": "fonts/bookantiqua_black_24.fnt"},
 		"white32": 		{"file": "fonts/bookantiqua_white_32.fnt"},
 		"white64": 		{"file": "fonts/bookantiqua_white_64.fnt"}
 	},
@@ -24,7 +25,9 @@
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	    default: { font: default-font, fontColor: white },
-	    ending: { font: white64, fontColor: white }
+	    ending: { font: white64, fontColor: white },
+	    debug: { background: yellow9, font: black24, fontColor: black },
+	    textbubble: { background: textbubble, font: white32, fontColor: white }
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 		default: { background: touchBackground, knob: touchKnob }

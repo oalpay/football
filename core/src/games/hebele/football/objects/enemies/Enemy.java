@@ -21,8 +21,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
 
@@ -36,13 +38,17 @@ public class Enemy extends Sprite {
 	private Body body;
 	private Fixture fixture;
 	
+	private Skin skin;
 	public TextureAtlas textureAtlas;
 	public Animation enemyAnimation;
 	
 	private BehaviourMovement IMovement;
 	
 	public Array<String> textAlternatives = new Array<String>();
-	private Label textBubble;
+	private Label textBubble, debugState;
+	private boolean debugStateLabel = true; //SHOW STATE LABELS UNDER ENEMIES
+	
+	private int distanceToPlayer;
 	
 	private float height, width;
 	
@@ -75,7 +81,7 @@ public class Enemy extends Sprite {
 		//GET THE TEXTURE ATLAS OF ALL ENEMIES
 		//THE RELEVANT REGIONS IS SET AT THE SUB ENEMY CLASS
 		textureAtlas = Assets.manager.get(Assets.enemyPack, TextureAtlas.class);
-		
+		skin = Assets.manager.get(Assets.skin, Skin.class);
 		
 		//PLAYER SHAPE
 		//body def
@@ -115,6 +121,7 @@ public class Enemy extends Sprite {
 		body.setUserData(this);
 		
 		initTextBubble();
+		if(debugStateLabel) initDebugStateLabel();
 	}
 	
 	public void resetBehaviour(){
@@ -145,25 +152,27 @@ public class Enemy extends Sprite {
 		textBubble.setVisible(false);
 	}
 	
+	public void initDebugStateLabel(){
+		debugState = new Label("",skin,"debug");
+		stage.addActor(debugState);
+	}
+	
+	public void updateDebugStatePosition(){
+		debugState.setText(""+currentState+"\nDist: "+distanceToPlayer);
+		debugState.pack();
+		
+		float Virtual_Width=Variables.TILE_SIZE*Variables.TILES_PER_SCREENWIDTH/Variables.PIXEL_TO_METER;
+		float Virtual_Height=Virtual_Width * Variables.VIRTUAL_STAGE_HEIGHT / Variables.VIRTUAL_STAGE_WIDTH;
+		float bubbleX = Variables.VIRTUAL_STAGE_WIDTH * (body.getPosition().x - player.getBody().getPosition().x)/Virtual_Width;
+		float bubbleY = Variables.VIRTUAL_STAGE_HEIGHT * (body.getPosition().y - player.getBody().getPosition().y)/Virtual_Height;
+		
+		debugState.setPosition(Variables.VIRTUAL_STAGE_WIDTH/2 + bubbleX - debugState.getWidth()/2, Variables.VIRTUAL_STAGE_HEIGHT/2 + bubbleY - debugState.getHeight()*2f);
+	}
+	
 	public void initTextBubble(){
-		//9PATCH TEST
-		TextureAtlas textureAtlas= new TextureAtlas("data/football.pack");
-
-		NinePatch patch = new NinePatch(textureAtlas.findRegion("textbubble"),28,28,28,28);
-		NinePatchDrawable pD = new NinePatchDrawable(patch);
-
-		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/bookantiqua_white_32.fnt"));
-		
-		
-		LabelStyle style = new LabelStyle();
-		style.background=pD;
-		style.font=font;
-		
-		textBubble = new Label("Keserim Topunu!",style);
-		
+		textBubble = new Label("",skin,"textbubble");
 		stage.addActor(textBubble);
 		textBubble.setVisible(false);
-		//-------------
 	}
 	
 	public void updateBubbleText(){
@@ -172,16 +181,20 @@ public class Enemy extends Sprite {
 	}
 	
 	public void updateBubblePosition(){
-		
 		float Virtual_Width=Variables.TILE_SIZE*Variables.TILES_PER_SCREENWIDTH/Variables.PIXEL_TO_METER;
-		
 		float bubbleX = Variables.VIRTUAL_STAGE_WIDTH * (body.getPosition().x - player.getBody().getPosition().x)/Virtual_Width;
-		
 		textBubble.setPosition(Variables.VIRTUAL_STAGE_WIDTH/2 + bubbleX - textBubble.getWidth()/2, Variables.VIRTUAL_STAGE_HEIGHT*0.6f);
 	}
 	
+	public void calculateDistanceToPlayer(){
+		distanceToPlayer = (int) (Math.sqrt(Math.pow((getX() - player.getX()), 2) + Math.pow((getY() - player.getY()), 2)) * Variables.PIXEL_TO_METER);
+	}
 	
 	public void update(float delta, float runTime){
+		
+		//CHECK THE DISTANCE WITH THE PLAYER
+		calculateDistanceToPlayer();
+		
 		
 		switch(currentState){
 		
@@ -205,6 +218,9 @@ public class Enemy extends Sprite {
 			*/
 		}
 		
+		//DEBUG STATE LABEL
+		if(debugStateLabel) updateDebugStatePosition();
+
 		//update SPRITE Position
 		setPosition(body.getPosition().x-width/2,body.getPosition().y-height/2);
 		
@@ -228,6 +244,7 @@ public class Enemy extends Sprite {
 	}
 	
 	public void die(){
+		debugState.setVisible(false);
 		textBubble.setVisible(false);
 		isDead=true;
 	}

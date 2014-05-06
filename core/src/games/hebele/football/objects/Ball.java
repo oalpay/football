@@ -1,5 +1,7 @@
 package games.hebele.football.objects;
 
+import games.hebele.football.helpers.Assets;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -53,7 +55,7 @@ public class Ball extends Sprite {
 		
 		circle.dispose();
 		
-		textureAtlas= new TextureAtlas("data/football.pack");
+		textureAtlas = Assets.manager.get(Assets.footballPack, TextureAtlas.class);
 		setRegion(textureAtlas.findRegion("ball"));
 	}
 	

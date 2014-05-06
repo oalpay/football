@@ -1,124 +1,203 @@
 
-touchpad.png
+football.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+bg1
+  rotate: false
+  xy: 1, 739
+  size: 481, 274
+  orig: 481, 274
+  offset: 0, 0
+  index: -1
+ground2
+  rotate: false
+  xy: 1, 574
+  size: 478, 163
+  orig: 478, 163
+  offset: 0, 0
+  index: -1
 touchBackground
   rotate: false
-  xy: 1, 51
+  xy: 484, 813
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 controller2
   rotate: false
-  xy: 203, 140
+  xy: 1, 461
   size: 160, 111
   orig: 160, 111
   offset: 0, 0
   index: -1
-controller
-  rotate: false
-  xy: 365, 159
-  size: 160, 92
-  orig: 160, 92
-  offset: 0, 0
-  index: -1
 lock
   rotate: false
-  xy: 527, 101
+  xy: 686, 863
   size: 113, 150
   orig: 113, 150
   offset: 0, 0
   index: -1
+controller
+  rotate: false
+  xy: 1, 367
+  size: 160, 92
+  orig: 160, 92
+  offset: 0, 0
+  index: -1
+male_runner_1
+  rotate: false
+  xy: 163, 422
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 1
+male_runner_1
+  rotate: false
+  xy: 801, 863
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 2
+male_runner_1
+  rotate: false
+  xy: 1, 215
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 3
+male_runner_1
+  rotate: false
+  xy: 265, 422
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 4
+male_runner_1
+  rotate: false
+  xy: 903, 863
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 5
+male_runner_1
+  rotate: false
+  xy: 1, 63
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: 6
 blue_panel
   rotate: false
-  xy: 642, 151
+  xy: 367, 472
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 green_panel
   rotate: false
-  xy: 744, 151
+  xy: 484, 711
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 grey_panel
   rotate: false
-  xy: 846, 151
+  xy: 586, 711
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 yellow_panel
   rotate: false
-  xy: 203, 38
+  xy: 481, 609
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 star_empty
   rotate: false
-  xy: 305, 39
+  xy: 583, 610
   size: 96, 99
   orig: 96, 99
   offset: 0, 0
   index: -1
 star_full
   rotate: false
-  xy: 403, 58
+  xy: 103, 266
   size: 96, 99
   orig: 96, 99
   offset: 0, 0
   index: -1
+ball
+  rotate: false
+  xy: 103, 184
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
 touchKnob
   rotate: false
-  xy: 948, 179
+  xy: 103, 110
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panelbg
   rotate: false
-  xy: 642, 89
+  xy: 1, 1
   size: 60, 60
   split: 29, 30, 31, 28
   orig: 60, 60
   offset: 0, 0
   index: -1
+textbubble
+  rotate: false
+  xy: 367, 410
+  size: 60, 60
+  split: 30, 29, 30, 29
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
 btn_menu
   rotate: false
-  xy: 1, 1
+  xy: 686, 813
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 btn_restart
   rotate: false
-  xy: 704, 101
+  xy: 163, 372
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 51, 1
+  xy: 736, 813
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 play
   rotate: false
-  xy: 754, 101
+  xy: 688, 763
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
+yellow9
+  rotate: false
+  xy: 1005, 1008
+  size: 5, 5
+  split: 2, 2, 2, 2
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
 perde
   rotate: false
-  xy: 1022, 250
+  xy: 481, 736
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
