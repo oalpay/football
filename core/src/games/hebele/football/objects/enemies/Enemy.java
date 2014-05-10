@@ -101,6 +101,7 @@ public class Enemy extends Sprite {
 		fixtureDef.density=.5f;
 		fixtureDef.friction=0.3f;
 		fixtureDef.restitution=0f;
+		fixtureDef.filter.maskBits &= ~Variables.CAGE_CATEGOTY;
 		
 		body = this.world.createBody(bodyDef);
 		fixture = body.createFixture(fixtureDef);
@@ -114,6 +115,7 @@ public class Enemy extends Sprite {
 		fixtureDef.density=.5f;
 		fixtureDef.friction=0.3f;
 		fixtureDef.restitution=0f;
+		
 		
 		
 		fixture.setUserData("enemy");

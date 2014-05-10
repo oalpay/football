@@ -64,7 +64,6 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 	
 	@Override
 	public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
-		
 		/*
 		if(fixtureA.getBody().getUserData() instanceof Enemy){
 			Enemy e = (Enemy)fixtureA.getBody().getUserData();
@@ -96,7 +95,7 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		String dataB=contact.getFixtureB().getUserData().toString();
 		
 		//BALL & PLAYER
-		if(checkIfContact(dataA,dataB,"ball","player")){	
+		if(checkIfContact(dataA,dataB,"ball","playerSensor")){	
 			player.prepareForPickingBall();
 		}
 		
@@ -177,7 +176,7 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		//CHECK PLAYER FEET
 		if(checkIfContact(dataA,dataB,"playerSensor","ALL","ball")){
 			//System.out.println("PLAYER GROUNDED");
-			player.increaseFeetContacts();
+			//player.increaseFeetContacts();
 		}
 	}
 
@@ -218,7 +217,7 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		//CHECK PLAYER FEET
 		if(checkIfContact(dataA,dataB,"playerSensor","ALL","ball")){
 			//System.out.println("PLAYER LEFT THE GROUND");
-			player.decreaseFeetContacts();
+			//player.decreaseFeetContacts();
 		}
 	}
 
@@ -228,8 +227,8 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 		String dataB=contact.getFixtureB().getUserData().toString();
 		
 		if(checkIfContact(dataA,dataB,"ground","player")){	
-			if(player.isIdle()) contact.setFriction(100);
-			else contact.setFriction(0);
+			//if(player.isIdle()) contact.setFriction(100);
+			//else contact.setFriction(0);
 		}
 	}
 

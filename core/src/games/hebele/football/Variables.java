@@ -11,9 +11,14 @@ public class Variables {
 	
 	public static float Virtual_Ratio;
 	
-	public static final float BALL_ROPE_LENGTH=1f;
+	public static final float BALL_ROPE_LENGTH=1.2f;
 	
     public static float playerSpeed=4f;
-    public static float playerJumpSpeed=3.2f;
+    public static float playerJumpSpeed=6f;
     public static float playerKickPower=1.5f;
+    
+    public static final short CAGE_CATEGOTY= 0x0002; 
+    public static final short PLAYER_CATEGOTY= 0x0004; 
+    public static final short BALL_CATEGOTY= 0x0008; 
+    
 }

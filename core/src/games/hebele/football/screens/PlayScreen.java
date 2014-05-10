@@ -110,7 +110,7 @@ public class PlayScreen implements Screen {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 		ContactHelper contactHelper = new ContactHelper(world, player, ballBody);
-		world.setContactFilter(contactHelper);
+		//world.setContactFilter(contactHelper);
 		world.setContactListener(contactHelper);
 		
 		
@@ -161,9 +161,10 @@ public class PlayScreen implements Screen {
 		fixtureDef.shape=groundShape;
 		fixtureDef.friction=0.1f;
 		fixtureDef.restitution=0;
+		fixtureDef.filter.maskBits &= ~Variables.CAGE_CATEGOTY;
 		
 		groundBody = world.createBody(bodyDef);
-		groundBody.createFixture(fixtureDef).setUserData("border");
+		groundBody.createFixture(fixtureDef).setUserData("ground");
 		groundShape.dispose();
 		//---------------------BOUNDRIES OF MAP
 		
@@ -191,6 +192,7 @@ public class PlayScreen implements Screen {
 				fixtureDef.shape=groundShape;
 				fixtureDef.friction=0.1f;
 				fixtureDef.restitution=0;
+				fixtureDef.filter.maskBits &= ~Variables.CAGE_CATEGOTY;
 				
 				groundBody = world.createBody(bodyDef);
 				groundBody.createFixture(fixtureDef).setUserData("ground");
@@ -255,8 +257,6 @@ public class PlayScreen implements Screen {
 		camera.update();
 
 		sweepDeadBodies();
-		if(GameController.fixBallPosition) player.fixBallPosition();
-		if(player.isPreparePickBall()) player.pickBall();
 		
 		world.step(1/60f, 8, 3);
 

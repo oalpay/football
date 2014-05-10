@@ -149,8 +149,8 @@ public class HUD {
 			@Override
 			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
 				//System.out.println("touchup");
-				player.setWalkingLeft(false);
-				player.setWalkingRight(false);
+			//	player.setWalkingLeft(false);
+			//	player.setWalkingRight(false);
 			//	player.stop();
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -163,13 +163,13 @@ public class HUD {
 			//System.out.println("touchDragged: "+x+" , "+y);
 			
 			if(x<controllerWidth/3){ //GO TO LEFT
-				player.setWalkingRight(false);
-				player.setWalkingLeft(true);
+		//		player.setWalkingRight(false);
+		//		player.setWalkingLeft(true);
 				//System.out.println("left");
 			}
 			else if(x>controllerWidth*2/3){ //GO TO RIGHT
-				player.setWalkingLeft(false);
-				player.setWalkingRight(true);
+		//		player.setWalkingLeft(false);
+		//		player.setWalkingRight(true);
 				//System.out.println("right");
 			}
 			else{ //STOP AT X AXIS
@@ -178,7 +178,7 @@ public class HUD {
 			}
 			
 			if(y>controllerHeight*0.6f){
-				player.jump();
+			//	player.jump();
 				//System.out.println("up");
 			}
 		}
