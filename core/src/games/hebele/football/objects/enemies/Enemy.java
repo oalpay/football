@@ -1,14 +1,13 @@
 package games.hebele.football.objects.enemies;
 
-import java.util.ArrayList;
-
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.GameEvent;
 import games.hebele.football.objects.Actress;
 import games.hebele.football.objects.Player;
 
-import com.badlogic.gdx.Gdx;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -287,7 +286,7 @@ public class Enemy extends Sprite implements Actress {
 		enemyAnimation.setPlayMode(PlayMode.LOOP);
 		setRegion(enemyAnimation.getKeyFrame(0.2f));
 	}
-	
+
 	@Override
 	public void step(float delta, ArrayList<GameEvent> events) {
 		// CHECK THE DISTANCE WITH THE PLAYER
@@ -331,11 +330,12 @@ public class Enemy extends Sprite implements Actress {
 		// ACT
 		act();
 	}
-	
+
 	@Override
 	public boolean isDead() {
 		return isFlaggedForDelete();
 	}
+
 	@Override
 	public void destroy() {
 		this.world.destroyBody(body);

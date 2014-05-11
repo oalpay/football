@@ -1,12 +1,12 @@
 package games.hebele.football.objects;
 
-import java.util.ArrayList;
-
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.BasicGameEvent;
 import games.hebele.football.helpers.GameEvent;
 import games.hebele.football.helpers.GameEventManager;
+
+import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -25,7 +25,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RopeJoint;
 import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
-import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
 public class Player extends InputMover implements Actress {
 

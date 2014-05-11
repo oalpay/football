@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.physics.box2d.Body;
 
 /**
  * Move bodies according to inputs
