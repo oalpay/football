@@ -1,5 +1,9 @@
 package games.hebele.football.objects;
 
+import games.hebele.football.helpers.GameEvent;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +25,7 @@ public class SpriteWalkerReflex extends SpriteReflex{
 		this.walkAnimation = walkAnimation;
 	}
 
-	public void step(float delta) {
+	public void step(float delta,ArrayList<GameEvent> events) {
 		currentAnimationState += delta;
 		Vector2 currentVelocity = this.getBody().getLinearVelocity();
 		if (currentVelocity.x != 0) {
@@ -38,6 +42,6 @@ public class SpriteWalkerReflex extends SpriteReflex{
 			this.getSprite().setFlip(true, false);
 		}
 		previousVelocity.set(currentVelocity);
-		super.step(delta);
+		super.step(delta,events);
 	}
 }

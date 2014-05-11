@@ -1,8 +1,12 @@
 package games.hebele.football.objects;
 
+import java.util.ArrayList;
+
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
+import games.hebele.football.helpers.GameEvent;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -14,15 +18,17 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Ball extends Sprite {
+public class Ball extends Sprite implements Actress {
 
 	private Body body;
 	private Fixture fixture;
 	private TextureAtlas textureAtlas;
 	private boolean isKicked = false;
 	private SpriteReflex reflex;
+	private World world;
 
-	public Ball(World world, Player player) {
+	public Ball(World world) {
+		this.world = world;
 		float size = 0.5f;
 
 		setSize(size, size);
@@ -58,22 +64,18 @@ public class Ball extends Sprite {
 		this.reflex = new SpriteReflex(body, this);
 	}
 
-	public void update(float delta) {
-		reflex.step(delta);
-	}
-
 	public Body getBody() {
 		return body;
 	}
 
-	public void setKicked(){
-		isKicked=true;
+	public void setKicked() {
+		isKicked = true;
 		Filter old = fixture.getFilterData();
 		old.maskBits &= ~Variables.CAGE_CATEGOTY;
 		fixture.setFilterData(old);
 	}
-	
-	public void picked(){
+
+	public void picked() {
 		Filter old = fixture.getFilterData();
 		old.maskBits |= Variables.CAGE_CATEGOTY;
 		fixture.setFilterData(old);
@@ -85,5 +87,25 @@ public class Ball extends Sprite {
 
 	public boolean isKicked() {
 		return isKicked;
+	}
+
+	@Override
+	public void step(float delta, ArrayList<GameEvent> events) {
+		reflex.step(delta, events);
+	}
+
+	@Override
+	public void draw(Batch batch) {
+		super.draw(batch);
+	}
+
+	@Override
+	public boolean isDead() {
+		return false;
+	}
+
+	@Override
+	public void destroy() {
+		this.world.destroyBody(body);
 	}
 }

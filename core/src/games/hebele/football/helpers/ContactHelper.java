@@ -24,14 +24,12 @@ public class ContactHelper  implements ContactFilter, ContactListener {
 	private Player player;
 	private Ball ball;
 	private Body ballBody;
-	//private RopeJoint ropeBall;
 	
 	public ContactHelper(World world, Player player, Body ballBody){
 		this.world=world;
 		this.player=player;
 		this.ballBody=ballBody;
 		this.ball=player.getBall();
-		//this.ropeBall=ropeBall;
 	}
 	
 	

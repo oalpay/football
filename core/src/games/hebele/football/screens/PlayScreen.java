@@ -1,10 +1,17 @@
 package games.hebele.football.screens;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
 import games.hebele.football.helpers.ContactHelper;
 import games.hebele.football.helpers.GameController;
+import games.hebele.football.helpers.GameEvent;
+import games.hebele.football.helpers.GameEventManager;
 import games.hebele.football.helpers.InputHandler;
+import games.hebele.football.objects.Actress;
+import games.hebele.football.objects.Ball;
 import games.hebele.football.objects.Player;
 import games.hebele.football.objects.enemies.*;
 
@@ -39,6 +46,7 @@ public class PlayScreen implements Screen {
 
 	private World world;
 	private Body groundBody, ballBody;
+	private GameEventManager eventManager;
 	
 	private TextureAtlas textureAtlas;
 	private TextureRegion texturebg, textureGround;
@@ -63,8 +71,8 @@ public class PlayScreen implements Screen {
 	private float Virtual_Width, Virtual_Height;
 	
 	private float runTime;
-	
-	private Array<Enemy> enemies = new Array<Enemy>();
+		
+	private Array<Actress> actresses = new Array<Actress>();
 	
 	
 	@Override
@@ -92,12 +100,15 @@ public class PlayScreen implements Screen {
 		shapeRenderer = new ShapeRenderer();
 		
 		world = new World(new Vector2(0,-9.81f),true);
+		eventManager = new GameEventManager();
 		
 		debugRenderer = new Box2DDebugRenderer();
 		
 
-		
-		player = new Player(world);
+		Ball playerBall = new Ball(world);
+		actresses.add(playerBall);
+		player = new Player(world,playerBall,eventManager);
+		actresses.add(player);
 
 		setTiledMapShapes();
 
@@ -222,7 +233,7 @@ public class PlayScreen implements Screen {
 				else  e = new Wilber(world, stage, player, posX, posY);
 				
 				 
-				enemies.add(e);
+				actresses.add(e);
 				
 				//System.out.println(posX+" , "+posY);
 			}
@@ -233,17 +244,13 @@ public class PlayScreen implements Screen {
 	}
 	
     public void sweepDeadBodies() {
-    	Array<Body> tmpBodies = new Array<Body>();
-    	world.getBodies(tmpBodies);
-    	for (Body body : tmpBodies) {
-    	     if(body!=null && body.getUserData() instanceof Enemy) {
-    	          Enemy data = (Enemy) body.getUserData();
-    	          if(data.isFlaggedForDelete()) {
-    	        	  world.destroyBody(body);
-    	        	  body.setUserData(null);
-    	        	  body = null;
-    	          }
-    	     }
+    	Iterator<Actress> iter = actresses.iterator();
+    	while (iter.hasNext()) {
+    		Actress a = iter.next();
+    		if(a.isDead()){
+				 a.destroy();
+				 iter.remove();
+			}
     	}
     }
     
@@ -259,16 +266,9 @@ public class PlayScreen implements Screen {
 		sweepDeadBodies();
 		
 		world.step(1/60f, 8, 3);
-
-		player.update(delta,runTime);
-		inputHandler.checkPressedInput(delta);
-		
-		//UPDATE ENEMIES	
-		for(int i=0; i<enemies.size; i++){
-			Enemy e = enemies.get(i);
-			if(!e.isFlaggedForDelete()){
-				e.update(delta, runTime);
-			}
+		ArrayList<GameEvent> events = eventManager.getAndClean();
+		for (Actress a : actresses) {
+			a.step(delta,events);
 		}
     }
     //------------------------------------------------
@@ -310,17 +310,9 @@ public class PlayScreen implements Screen {
 
 		spriteBatch.begin();
 		//DRAW PLAYER
-		player.draw(spriteBatch);
 		
-		//DRAW BALL
-		player.getBall().draw(spriteBatch);
-		
-		//DRAW ENEMIES
-		for(int i=0; i<enemies.size; i++){
-			Enemy e = enemies.get(i);
-			if(!e.isFlaggedForDelete()){
-				e.draw(spriteBatch);
-			}
+		for (Actress a : actresses) {
+			a.draw(spriteBatch);
 		}
 		
 		spriteBatch.end();
@@ -351,6 +343,7 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		actresses.clear();
 		map.dispose();
 		mapRenderer.dispose();
 		spriteBatch.dispose();

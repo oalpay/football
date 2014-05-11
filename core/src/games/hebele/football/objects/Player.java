@@ -1,12 +1,17 @@
 package games.hebele.football.objects;
 
+import java.util.ArrayList;
+
 import games.hebele.football.Variables;
 import games.hebele.football.helpers.Assets;
+import games.hebele.football.helpers.BasicGameEvent;
+import games.hebele.football.helpers.GameEvent;
+import games.hebele.football.helpers.GameEventManager;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,23 +25,16 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RopeJoint;
 import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
+import com.sun.xml.internal.fastinfoset.algorithm.BuiltInEncodingAlgorithm.WordListener;
 
-public class Player extends InputMover{
+public class Player extends InputMover implements Actress {
 
 	private World world;
 	private Body playerBody;
 	private Fixture playerFixture, playerSensorFixture;
 	private Sprite sprite;
-
 	private Ball playerBall;
-
 	private Animation playerAnimation;
-
-	public boolean holdState = true;
-	public boolean isIdle = true;
-	public boolean towardsRight = true;
-	public boolean isWalking = false;
-
 
 	private float width, height;
 
@@ -44,12 +42,14 @@ public class Player extends InputMover{
 	private RopeJoint leftRope;
 	private RopeJoint rightRope;
 	private boolean hasBall = true;
+	private GameEventManager eventManager;
 
-	public Player(World world) {
+	public Player(World world, Ball ball, GameEventManager eventManager) {
 		this.world = world;
 		this.sprite = new Sprite();
+		this.eventManager = eventManager;
 
-		playerBall = new Ball(world, this);
+		playerBall = ball;
 
 		height = 1;
 		width = 1;
@@ -70,7 +70,8 @@ public class Player extends InputMover{
 		this.sprite.setFlip(true, false);
 		// flip(true,false);
 
-		this.reflex = new SpriteWalkerReflex(playerBody, this.sprite, playerAnimation);
+		this.reflex = new SpriteWalkerReflex(playerBody, this.sprite,
+				playerAnimation);
 	}
 
 	public void initPlayerBody() {
@@ -128,7 +129,7 @@ public class Player extends InputMover{
 	public void initPlayerBaseFixture() {
 		FixtureDef cageBottomDef = new FixtureDef();
 		PolygonShape cageBottomShape = new PolygonShape();
-		float[] verticesBottom = { 1.2f, -0.7f, -1.2f,  -0.7f, -1.2f, -0.8f };
+		float[] verticesBottom = { 1.2f, -0.7f, -1.2f, -0.7f, -1.2f, -0.8f };
 		cageBottomShape.set(verticesBottom);
 		cageBottomDef.shape = cageBottomShape;
 		cageBottomDef.restitution = 0f;
@@ -143,36 +144,24 @@ public class Player extends InputMover{
 		RopeJointDef ropeLeftDef = new RopeJointDef();
 		ropeLeftDef.bodyA = playerBody;
 		ropeLeftDef.bodyB = playerBall.getBody();
-		ropeLeftDef.localAnchorA.set(-1,-height/2);
-		ropeLeftDef.localAnchorB.set(0,0);
+		ropeLeftDef.localAnchorA.set(-1, -height / 2);
+		ropeLeftDef.localAnchorB.set(0, 0);
 		ropeLeftDef.collideConnected = true;
 		ropeLeftDef.maxLength = 2f;
 		leftRope = (RopeJoint) world.createJoint(ropeLeftDef);
-		
+
 		RopeJointDef ropeRightDef = new RopeJointDef();
 		ropeRightDef.bodyA = playerBody;
 		ropeRightDef.bodyB = playerBall.getBody();
-		ropeRightDef.localAnchorA.set(1,-height/2);
-		ropeRightDef.localAnchorB.set(0,0);
+		ropeRightDef.localAnchorA.set(1, -height / 2);
+		ropeRightDef.localAnchorB.set(0, 0);
 		ropeRightDef.collideConnected = true;
 		ropeRightDef.maxLength = 2f;
 		rightRope = (RopeJoint) world.createJoint(ropeRightDef);
 	}
 
-	public void update(float delta, float runTime) {
-
-		playerBall.update(delta);
-
-		this.step(delta);//mover
-		reflex.step(delta);
-	}
-
 	public Body getBody() {
 		return playerBody;
-	}
-
-	public void setHoldState(boolean bool) {
-		holdState = bool;
 	}
 
 	public Ball getBall() {
@@ -182,7 +171,6 @@ public class Player extends InputMover{
 	public Body getBallBody() {
 		return playerBall.getBody();
 	}
-
 
 	public void kickBall(float xPercent, float yPercent) {
 		if (((playerBall.getBody().getPosition().x > playerBody.getPosition().x && xPercent > 0) || (playerBall
@@ -197,12 +185,12 @@ public class Player extends InputMover{
 			Vector2 ballCenter = playerBall.getBody().getWorldCenter();
 			playerBall.getBody().applyLinearImpulse(kickForceX, kickForceY,
 					ballCenter.x, ballCenter.y, true);
+			eventManager.notify(new BasicGameEvent(BasicGameEvent.BALL_KICKED));
 		}
 	}
 
-
 	public void prepareForPickingBall() {
-		if (hasBall){
+		if (hasBall) {
 			return;
 		}
 		hasBall = true;
@@ -210,7 +198,7 @@ public class Player extends InputMover{
 		leftRope.setMaxLength(0.6f);
 		rightRope.setMaxLength(0.6f);
 	}
-	
+
 	public float getX() {
 		return this.sprite.getX();
 	}
@@ -219,11 +207,6 @@ public class Player extends InputMover{
 		return this.sprite.getY();
 	}
 
-	public void draw(SpriteBatch spriteBatch) {
-		this.sprite.draw(spriteBatch);
-	}
-
-	
 	@Override
 	public float getLeftSpeed() {
 		return Variables.playerSpeed;
@@ -241,12 +224,16 @@ public class Player extends InputMover{
 
 	@Override
 	public boolean canJump() {
-		//check if touching ground
+		// check if touching ground
 		for (Contact contact : world.getContactList()) {
-			if(contact.getFixtureA().getUserData().equals("player") && contact.getFixtureB().getUserData().equals("ground")){
-				return contact.getFixtureB().getBody().getPosition().y <= contact.getFixtureB().getBody().getPosition().y;
-			}else if(contact.getFixtureB().getUserData().equals("player") && contact.getFixtureA().getUserData().equals("ground")){
-				return contact.getFixtureA().getBody().getPosition().y <= contact.getFixtureB().getBody().getPosition().y;
+			if (contact.getFixtureA().getUserData().equals("player")
+					&& contact.getFixtureB().getUserData().equals("ground")) {
+				return contact.getFixtureB().getBody().getPosition().y <= contact
+						.getFixtureB().getBody().getPosition().y;
+			} else if (contact.getFixtureB().getUserData().equals("player")
+					&& contact.getFixtureA().getUserData().equals("ground")) {
+				return contact.getFixtureA().getBody().getPosition().y <= contact
+						.getFixtureB().getBody().getPosition().y;
 			}
 		}
 		return false;
@@ -268,6 +255,27 @@ public class Player extends InputMover{
 			rightRope.setMaxLength(0.5f);
 		}
 		super.movingRight();
+	}
+
+	@Override
+	public void draw(Batch batch) {
+		this.sprite.draw(batch);
+	}
+
+	@Override
+	public void step(float delta, ArrayList<GameEvent> events) {
+		super.step(delta, events);// mover
+		reflex.step(delta, events);
+	}
+
+	@Override
+	public boolean isDead() {
+		return false;
+	}
+
+	@Override
+	public void destroy() {
+		this.world.destroyBody(playerBody);
 	}
 
 }
