@@ -19,6 +19,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Ball extends Sprite implements Actress {
+	
+	public enum State{
+		PICKED, KICKED
+	}
 
 	private Body body;
 	private Fixture fixture;

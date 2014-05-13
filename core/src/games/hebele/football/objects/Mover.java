@@ -48,15 +48,27 @@ public abstract class Mover implements Stepper {
 
 	public abstract float getJumpSpeed();
 
+	
 	public abstract boolean canJump();
 
+	/**
+	 * called at each step to decide which direction to move
+	 * 
+	 * @return
+	 */
 	public abstract Set<Direction> getDirections();
 
-	public void movingRight() {
+	/**
+	 * called when moving toward right
+	 */
+	protected void movingRight() {
 
 	}
 
-	public void movingLeft() {
+	/**
+	 * called when moving left
+	 */
+	protected void movingLeft() {
 
 	}
 
