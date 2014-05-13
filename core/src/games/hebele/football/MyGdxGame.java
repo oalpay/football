@@ -2,7 +2,6 @@ package games.hebele.football;
 
 import games.hebele.football.helpers.Assets;
 import games.hebele.football.screens.LevelSelectionScreen;
-import games.hebele.football.screens.PlayScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
